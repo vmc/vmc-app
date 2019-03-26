@@ -3,6 +3,12 @@ package com.s2g;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import com.mapbox.rctmgl.RCTMGLPackage;
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -26,6 +32,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseMessagingPackage(),
+            new RNFirebaseNotificationsPackage(),
+            new RCTMGLPackage(),
+            new RNCameraPackage(),
+            new RNFusedLocationPackage(),
             new RNI18nPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage()

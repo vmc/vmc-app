@@ -648,6 +648,14 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@mapbox/react-native-mapbox-gl@^6.1.3":
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/@mapbox/react-native-mapbox-gl/-/react-native-mapbox-gl-6.1.3.tgz#b1105b86a54e6a9994870b23b177561f18e632f8"
+  integrity sha512-nOqpMzS9YD8uyOaUxcVDnVcljA5tfDueiBSydjIts8hl5vKM4CYbslH9R7+nT4QT6gVLIDYHBcRuXwIHqYP5tg==
+  dependencies:
+    "@turf/helpers" "4.6.0"
+    underscore "^1.8.3"
+
 "@react-navigation/core@^3.0.0":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.1.1.tgz#badf449ac7d2ae65b0f5aa1bf63a87e7888458d3"
@@ -909,6 +917,11 @@
     react-modal "^3.3.2"
     react-split-pane "^0.1.77"
     react-treebeard "^2.1.0"
+
+"@turf/helpers@4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.6.0.tgz#12398733b8ae28420df6166fa44c7ee8ffd6414c"
+  integrity sha1-EjmHM7iuKEIN9hZvpEx+6P/WQUw=
 
 "@types/node@*":
   version "11.9.5"
@@ -5417,6 +5430,11 @@ ignite-animatable@1.0.2:
   resolved "https://registry.yarnpkg.com/ignite-animatable/-/ignite-animatable-1.0.2.tgz#d568153677edb2c64f95f0cba35df8aa6b426341"
   integrity sha512-FQIoAXE2WrJMMOJgSyZ7HD+Zqv89dqoVRcRicExf329eWHxiJ3b2M+bEk4NVgJkZ/jF5dYGRtudRVIn6ngpGYQ==
 
+ignite-camera@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ignite-camera/-/ignite-camera-0.0.1.tgz#da12b31c3c24b5046c8374d740fb126a8b02da9a"
+  integrity sha512-tE/vFRB8i2a7Xkfb5pCimyUA5wYlbMc8kbeSMXtZ3U0O0RoeL8sG6pMHlx62r0OzFH3meRKI/JfQC9ZGPxtGwA==
+
 ignite-i18n@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ignite-i18n/-/ignite-i18n-1.2.0.tgz#092653d7e5d35adc8c22b31831de7a9175c3570d"
@@ -7871,6 +7889,11 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
+opencollective-postinstall@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
+  integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
+
 opn@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.2.0.tgz#71fdf934d6827d676cecbea1531f95d354641225"
@@ -9118,6 +9141,13 @@ react-native-animatable@^1.3.1:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-camera@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-1.12.0.tgz#64cfb95fe4ad00f4fc4d94281bb3c913025964ca"
+  integrity sha512-b9dk4QrP7lGrkUvURiX3cCW9f/oDbhFuZP72YJKwYBe10o0TbSpAGErFbRgOoGarW4KupzSsHNun1istMuCMvg==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-compat@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-compat/-/react-native-compat-1.0.0.tgz#491dbd8a0105ac061b8d0d926463ce6a3dff33bc"
@@ -9134,6 +9164,19 @@ react-native-device-info@^0.24.3:
   version "0.24.3"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.24.3.tgz#f15eff8d09fe418eaf5e7c89ddaabbc5ed718fd7"
   integrity sha512-usW00Wk6DoXH1eRSMt07j0uYvuka3SIEnJ9girlddAacyqwfa1QMVTN4eYmtaBzuMd/avhis8iHZQ3cLaR9CMA==
+
+react-native-firebase@^5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.2.3.tgz#1e7867b32028cad24785b181aa9aba07e3787109"
+  integrity sha512-8XLioEQDSN8o0Uiu1cEb4Y50yC5PvECQjSV/+b6A9TzWmLrrfYwXkUWQH1Rua8OUWXAXCobknV6JQeKa3NsvJA==
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+    prop-types "^15.6.2"
+
+react-native-geolocation-service@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-2.0.0.tgz#9fbab4953726b3a3ca9a74388a92dc1e1997127a"
+  integrity sha512-X9WMTqWX6n0GH55/YVKwrdkSl64uTqfIt2ICKpwx6Qko62nqBHHS6AP6BODLQqsfGnZlpNcbDWRoj7JOuKxk+g==
 
 react-native-gesture-handler@1.0.9:
   version "1.0.9"
@@ -10991,6 +11034,11 @@ ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
   integrity sha512-UIEXBNeYmKptWH6z8ZnqTeS8fV74zG0/eRU9VGkpzz+LIJNs8W/zM/L+7ctCkRrgbNnnR0xxw4bKOr0cW0N0Og==
+
+underscore@^1.8.3:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
+  integrity sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

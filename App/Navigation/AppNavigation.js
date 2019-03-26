@@ -1,18 +1,66 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { createDrawerNavigator, createAppContainer, createSwitchNavigator, createStackNavigator, DrawerItems } from 'react-navigation'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
 import LaunchScreen from '../Containers/LaunchScreen'
+import AuthLoadingScreen from '../Containers/AuthLoadingScreen'
+import SignInScreen from '../Containers/SignInScreen'
+import AccountScreen from '../Containers/AccountScreen'
+import CameraScreen from '../Containers/CameraScreen'
+import Images from '../Themes/Images'
 
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
-const PrimaryNav = createStackNavigator({
-  LaunchScreen: { screen: LaunchScreen }
+const PrimaryNav = createDrawerNavigator({
+  LaunchScreen: {
+  	screen: createStackNavigator({ LaunchScreen: LaunchScreen, CameraScreen: CameraScreen }, {initialRouteName: 'LaunchScreen', headerMode: 'none'}),
+  	navigationOptions: {
+	    drawerLabel: 'Book a ride',
+	    drawerIcon: ({tintColor}) => (
+	      <Icon name="gps-fixed" size={20} color={tintColor} />
+	    ),
+	  }
+  },
+  AccountScreen: {screen: AccountScreen}
 }, {
   // Default config for all screens
-  headerMode: 'none',
+  headerMode: 'float',
   initialRouteName: 'LaunchScreen',
   navigationOptions: {
-    headerStyle: styles.header
-  }
+    headerStyle: styles.header,
+    drawerLockMode: 'locked-open'
+  },
+  contentOptions: {
+  	activeTintColor: '#005493'
+  },
+  contentComponent: props => 
+	  <View style={styles.drawer}>
+	  	<View>
+		  	<View style={styles.drawerHeader}>
+		  		<Image resizeMode={'contain'}  source={Images.logo_black} style={{height: 25}} />
+		  		<TouchableOpacity hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => props.navigation.closeDrawer()}>
+		  			<Icon name="clear" size={25} color="#005493"/>
+		  		</TouchableOpacity>
+		  	</View>
+		    <DrawerItems {...props} />
+		</View>
+	    <View style={styles.drawerFooter}>
+	  		<Image style={{width: 280}} source={Images.menu_footer} />
+	  	</View>
+	  </View>
 })
 
-export default createAppContainer(PrimaryNav)
+const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+
+export default createAppContainer(createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: PrimaryNav,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+));

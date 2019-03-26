@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "614404011653",
+    "firebase_url": "https://swheels2go.firebaseio.com",
+    "project_id": "swheels2go",
+    "storage_bucket": "swheels2go.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614404011653:android:78acd391f8625f76",
+        "android_client_info": {
+          "package_name": "com.s2g"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614404011653-ln8frgobbns5mbbfu8kitjeetl5135t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyhhJovW6dtmS8GW24WA3iVu-Z4DqITCU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

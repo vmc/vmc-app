@@ -4,15 +4,37 @@ import { Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    paddingBottom: Metrics.baseMargin
+    flex: 1,
   },
-  logo: {
-    marginTop: Metrics.doubleSection,
-    height: Metrics.images.logo,
-    width: Metrics.images.logo,
-    resizeMode: 'contain'
+  callout: {
+    backgroundColor: '#0067B2', 
+    padding: 10,
+    position: 'relative'
   },
-  centered: {
-    alignItems: 'center'
-  }
+  centerLocation: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#0067B2',
+    position: 'absolute',
+    right: 25,
+    bottom: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  annotationContainer: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  annotationFill: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#0067B2',
+    transform: [{ scale: 0.6 }],
+  },
 })
