@@ -30,7 +30,6 @@ const PrimaryNav = createDrawerNavigator({
   initialRouteName: 'LaunchScreen',
   navigationOptions: {
     headerStyle: styles.header,
-    drawerLockMode: 'locked-open'
   },
   contentOptions: {
   	activeTintColor: '#005493'
@@ -39,7 +38,7 @@ const PrimaryNav = createDrawerNavigator({
 	  <View style={styles.drawer}>
 	  	<View>
 		  	<View style={styles.drawerHeader}>
-		  		<Image resizeMode={'contain'}  source={Images.logo_black} style={{height: 25}} />
+		  		<Image resizeMode={'contain'}  source={Images.logo_black} style={{height: 25, width: 30}} />
 		  		<TouchableOpacity hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => props.navigation.closeDrawer()}>
 		  			<Icon name="clear" size={25} color="#005493"/>
 		  		</TouchableOpacity>

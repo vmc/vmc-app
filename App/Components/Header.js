@@ -12,7 +12,7 @@ export default class Header extends Component {
         <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} >
           <Icon name="menu" size={30} color="white" />
         </TouchableOpacity>
-        <Image source={Images.logo_white} style={{height: 25}} resizeMode={"contain"} />
+        <Image source={Images.logo_white} style={{height: 25, width:30}} />
         <View style={styles.rightView}></View>
       </View>
     )

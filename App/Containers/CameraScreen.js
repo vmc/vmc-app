@@ -23,7 +23,7 @@ class CameraScreen extends Component {
           type={RNCamera.Constants.Type.back}
           permissionDialogTitle={'Permission to use camera'}
           permissionDialogMessage={'We need your permission to use your camera phone'}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
+          onBarCodeRead={({ barcodes }) => {
             console.log(barcodes);
           }}
           captureAudio={false}
