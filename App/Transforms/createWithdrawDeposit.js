@@ -1,9 +1,11 @@
+// TODO: check if transfer and this file need to be merged.
+
 const protobuf = require("../protobuf");
 const utf8 = require("utf8");
 const { createHash } = require("crypto");
 const secp256k1 = require("secp256k1");
 
-export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
+export default createWithdrawDeposit = (privateKeyHex, amount, operation) => {
 
     // Transform hex private key to Buffer object
     privateKey = Buffer.from(privateKeyHex, "hex");
@@ -35,7 +37,7 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     // Sawtooth transaction family name
     const FAMILY_NAME = "vmc-core-trans-tp";
 
-    var rawPayload = "transfer," + amount.toString() + "," + publicKeyTo;
+    var rawPayload = operation + "," + amount.toString();
 
     // String to binary
     function str2ab(str) {
@@ -55,11 +57,6 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     var inputAddressList = [address];
     var outputAddressList = [address];
 
-    toAddress =
-      _hash(utf8.encode(FAMILY_NAME)).substring(0, 6) +
-      _hash(utf8.encode(publicKeyTo)).substring(0, 64);
-    inputAddressList.push(toAddress);
-    outputAddressList.push(toAddress);
 
     // Date object for the nonce
     var d = new Date();
@@ -123,7 +120,7 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
       user: {
         user: publicKey
       },
-      destination: publicKeyTo,
+      destination: publicKey,
       batchlist: batchListBytes
     };
   };
