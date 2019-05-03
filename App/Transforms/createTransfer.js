@@ -1,7 +1,5 @@
 const protobuf = require("../protobuf");
 const utf8 = require("utf8");
-const base64 = require("base-64");
-const crypto = require("crypto");
 const { createHash } = require("crypto");
 const secp256k1 = require("secp256k1");
 
@@ -129,5 +127,5 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     };
 
     return transfer
-    
+
   };
