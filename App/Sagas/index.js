@@ -4,13 +4,11 @@ import API from '../Services/Api'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
-import { GithubTypes } from '../Redux/GithubRedux'
 import { ImageTypes } from '../Redux/ImageRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-import { getUserAvatar } from './GithubSagas'
 import { postImage } from './ImageSagas'
 
 /* ------------- API ------------- */

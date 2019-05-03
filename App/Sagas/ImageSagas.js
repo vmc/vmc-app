@@ -1,5 +1,4 @@
 import { call, put } from 'redux-saga/effects'
-import { path } from 'ramda'
 import ImageActions from '../Redux/ImageRedux'
 
 export function * postImage (api, action) {
