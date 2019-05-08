@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ScrollView, Text, TextInput, Keyboard } from 'react-native'
+import { View, ScrollView, Text, TextInput, Keyboard, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -7,6 +7,7 @@ import Button from '../Components/Button'
 
 // Styles
 import styles from './Styles/TransferScreenStyle'
+import createTransfer from '../Transforms/createTransfer';
 
 class TransferScreen extends Component {
 
@@ -21,9 +22,73 @@ class TransferScreen extends Component {
       super(props)
       this.state = {
           publicKeyTo: "",
-          amountTo: ""
+          amountTo: "",
+          amount: "100000",
+          privateKey: "",
+          transferObject: ""
       }
   }
+
+  componentWillMount() {
+    this.getPrivateKey();
+  }
+
+  getPrivateKey = async () => {
+    let credentials = false;
+    try {
+      // Retreive the credentials
+      credentials = await Keychain.getGenericPassword();
+      if (credentials) {
+        this.setState({ privateKey: credentials.password });
+      } else {
+        alert("Could not retrieve private key!");
+      }
+    } catch (error) {
+      alert("Keychain couldn't be accessed!", error);
+    }
+  };
+
+
+  transferTokens = (amount, publicKeyTo) => {
+    try {
+      if (amount > Number(this.state.amount)) {
+        alert("You do not have enough tokens to do that transfer.");
+      } else if (
+        (amount > 0) &
+        !isNaN(amount) &
+        (Math.round(+amount) === +amount) &
+        (publicKeyTo.trim() !== "") &
+        secp256k1.publicKeyVerify(Buffer.from(publicKeyTo, "hex"))
+      ) {
+        amount = parseInt(amount);
+        Alert.alert(
+          "You are about to transfer tokens",
+          `Are you sure you want to transfer ${amount} tokens to ${publicKeyTo}?`,
+          [
+            {
+              text: "Cancel",
+              onPress: () => {
+                return;
+              },
+              style: "cancel"
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                  this.setState({transferObject: createTransfer()})
+              }
+            }
+          ],
+          { cancelable: true }
+        );
+      } else {
+        alert("Please enter a valid amount and public key to transfer to!");
+      }
+    } catch (e) {
+      alert("Please enter a valid amount and public key to transfer to!");
+    }
+  };
+
 
   render () {
     return (
@@ -54,7 +119,11 @@ class TransferScreen extends Component {
                     />
                     <Text style={styles.amountToText}>tokens</Text>
                 </View>
-                <Button text="Transfer" onPress={() => alert('hi')}/>
+                <Button 
+                    text="Transfer" 
+                    onPress={() => this.transferTokens(this.state.amountTo, this.state.publicKeyTo)}
+                />
+                <Text>{this.state.transferObject}</Text>
             </ScrollView>
         </View>
     )

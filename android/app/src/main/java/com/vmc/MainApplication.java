@@ -1,4 +1,4 @@
-package com.s2g;
+package com.vmc;
 
 import android.app.Application;
 
