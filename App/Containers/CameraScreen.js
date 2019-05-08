@@ -5,6 +5,7 @@ import { RNCamera } from 'react-native-camera'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 import ImageActions from '../Redux/ImageRedux'
+import styles from './Styles/CameraScreenStyles'
 
 class CameraScreen extends Component {
 
@@ -54,25 +55,3 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(CameraScreen)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-  },
-});

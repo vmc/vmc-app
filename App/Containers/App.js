@@ -1,4 +1,5 @@
 import '../Config'
+import '../../shim.js'
 import DebugConfig from '../Config/DebugConfig'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
@@ -11,16 +12,16 @@ firebase.messaging().getToken()
 	if (fcmToken) {
   		console.log(fcmToken)
 	} else {
-  		console.log('no token')
-  	}
+    console.log('no token')
+  }
 });
 
 // create our store
 const store = createStore()
 
 /**
- * Provides an entry point into our application.  Both index.ios.js and index.android.js
- * call this component first.
+ * Provides an entry point into our application.  Both index.ios.js 
+ * and index.android.js call this component first.
  *
  * We create our Redux store here, put it into a provider and then bring in our
  * RootContainer.

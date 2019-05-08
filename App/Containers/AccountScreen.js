@@ -26,7 +26,8 @@ class AccountScreen extends Component {
       <ScrollView style={styles.container}>
         <Header {...this.props} />
         <Button title="SIGN OUT" onPress={this._signOutAsync} />
-        <Image style={{height: 800}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
+        <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
+        <Text>Public key: {this.props.publicKey}</Text>
       </ScrollView>
     )
   }
@@ -34,7 +35,8 @@ class AccountScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    base64: state.image.base64
+    base64: state.image.base64,
+    publicKey: state.key.publicKey
   }
 }
 

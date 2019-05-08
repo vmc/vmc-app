@@ -8,6 +8,7 @@ import AuthLoadingScreen from '../Containers/AuthLoadingScreen'
 import SignInScreen from '../Containers/SignInScreen'
 import AccountScreen from '../Containers/AccountScreen'
 import CameraScreen from '../Containers/CameraScreen'
+import TransferScreen from '../Containers/TransferScreen'
 import Images from '../Themes/Images'
 
 import styles from './Styles/NavigationStyles'
@@ -15,7 +16,13 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = createDrawerNavigator({
   LaunchScreen: {
-  	screen: createStackNavigator({ LaunchScreen: LaunchScreen, CameraScreen: CameraScreen }, {initialRouteName: 'LaunchScreen', headerMode: 'none'}),
+  	screen: createStackNavigator({ 
+			LaunchScreen: LaunchScreen, 
+			CameraScreen: CameraScreen 
+		}, {
+			initialRouteName: 'LaunchScreen', 
+			headerMode: 'none'
+		}),
   	navigationOptions: {
 	    drawerLabel: 'Book a ride',
 	    drawerIcon: ({tintColor}) => (
@@ -23,7 +30,8 @@ const PrimaryNav = createDrawerNavigator({
 	    ),
 	  }
   },
-  AccountScreen: {screen: AccountScreen}
+	AccountScreen: {screen: AccountScreen},
+	TransferScreen: {screen: TransferScreen}
 }, {
   // Default config for all screens
   headerMode: 'float',

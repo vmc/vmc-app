@@ -4,8 +4,10 @@ import {
   AsyncStorage,
   View,
 } from 'react-native';
+import { connect } from 'react-redux'
+import KeyActions from '../Redux/KeyRedux'
 
-export default class AuthLoadingScreen extends React.Component {
+class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this._bootstrapAsync();
@@ -13,11 +15,15 @@ export default class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    const publicKey = await AsyncStorage.getItem('publicKey');
+    
+    // Check wheter the user is already logged in and perform the login operation if so.
+    if(publicKey) {
+      this.props.login(publicKey)
+      this.props.navigation.navigate('App');
+    } else {
+      this.props.navigation.navigate('Auth');
+    }
   };
 
   // Render any loading content that you like here
@@ -29,3 +35,11 @@ export default class AuthLoadingScreen extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (publicKey) => dispatch(KeyActions.login(publicKey))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AuthLoadingScreen)
