@@ -1,6 +1,6 @@
 // TODO: check if transfer and this file need to be merged.
 
-const protobuf = require("../protobuf");
+const protobuf = require("./protobuf");
 const utf8 = require("utf8");
 const { createHash } = require("crypto");
 const secp256k1 = require("secp256k1");

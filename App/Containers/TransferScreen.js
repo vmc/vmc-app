@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Button from '../Components/Button'
-
+import * as Keychain from "react-native-keychain"; 
+const secp256k1 = require("secp256k1");
 // Styles
 import styles from './Styles/TransferScreenStyle'
 import createTransfer from '../Transforms/createTransfer';
@@ -25,7 +26,7 @@ class TransferScreen extends Component {
           amountTo: "",
           amount: "100000",
           privateKey: "",
-          transferObject: ""
+          transferObject: {}
       }
   }
 
@@ -75,17 +76,17 @@ class TransferScreen extends Component {
             {
               text: "OK",
               onPress: () => {
-                  this.setState({transferObject: createTransfer()})
+                  this.setState({transferObject: createTransfer(this.state.privateKey, amount, publicKeyTo)})
               }
             }
           ],
           { cancelable: true }
         );
       } else {
-        alert("Please enter a valid amount and public key to transfer to!");
+        alert("Please enter a valid amount and public key to transfer to!!");
       }
     } catch (e) {
-      alert("Please enter a valid amount and public key to transfer to!");
+      alert(e);
     }
   };
 
@@ -95,7 +96,7 @@ class TransferScreen extends Component {
         <View>
             <Header {...this.props} />
             <ScrollView style={styles.container}>
-                <Text>Public key: {this.props.publicKey}</Text>
+                <Text>Balance: {this.state.amount}</Text>
                 <View style={styles.publicKeyTo}>
                     <TextInput
                         underlineColorAndroid="transparent"
@@ -123,7 +124,7 @@ class TransferScreen extends Component {
                     text="Transfer" 
                     onPress={() => this.transferTokens(this.state.amountTo, this.state.publicKeyTo)}
                 />
-                <Text>{this.state.transferObject}</Text>
+                <Text>{JSON.stringify(this.state.transferObject)}</Text>
             </ScrollView>
         </View>
     )

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Button, AsyncStorage, Image } from 'react-native'
+import { View, ScrollView, Text, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Button from '../Components/Button'
+import QRCode from "react-native-qrcode";
 
 // Styles
 import styles from './Styles/AccountScreenStyle'
@@ -23,12 +25,14 @@ class AccountScreen extends Component {
 
   render () {
     return (
-      <ScrollView style={styles.container}>
+      <View>
         <Header {...this.props} />
-        <Button title="SIGN OUT" onPress={this._signOutAsync} />
-        <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
-        <Text>Public key: {this.props.publicKey}</Text>
-      </ScrollView>
+        <ScrollView style={styles.container}>
+          <Button text="SIGN OUT" onPress={this._signOutAsync} />
+          <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
+          <Text>Public key: {this.props.publicKey}</Text>
+        </ScrollView>
+      </View>
     )
   }
 }
