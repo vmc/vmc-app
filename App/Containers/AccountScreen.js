@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Button from '../Components/Button'
-import QRCode from "react-native-qrcode";
-
+import BalanceActions from '../Redux/BalanceRedux'
 // Styles
 import styles from './Styles/AccountScreenStyle'
 
@@ -29,8 +28,11 @@ class AccountScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={styles.container}>
           <Button text="SIGN OUT" onPress={this._signOutAsync} />
+          <Button text="Balance update" onPress={() => this.props.topUp(this.props.publicKey, 10)} />
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
+          <Text>Balance: {this.props.balance}</Text>
+          <Text>Error: {this.props.error}</Text>
         </ScrollView>
       </View>
     )
@@ -40,12 +42,15 @@ class AccountScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     base64: state.image.base64,
-    publicKey: state.key.publicKey
+    publicKey: state.key.publicKey,
+    balance: state.balance.balance,
+    error: state.balance.error
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    topUp: (publicKey, amount) => dispatch(BalanceActions.topUpBalance(publicKey, amount))
   }
 }
 

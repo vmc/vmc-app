@@ -11,7 +11,7 @@ import { BalanceTypes } from '../Redux/BalanceRedux'
 
 import { startup } from './StartupSagas'
 import { postImage } from './ImageSagas'
-import { getBalance } from './BalanceSagas'
+import { getBalance, topUp } from './BalanceSagas'
 
 /* ------------- API ------------- */
 
@@ -25,6 +25,7 @@ export default function * root () {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(ImageTypes.POST_IMAGE, postImage, api),
-    takeLatest(BalanceTypes.POST_IMAGE, getBalance, api)
+    takeLatest(BalanceTypes.UPDATE_BALANCE, getBalance, api),
+    takeLatest(BalanceTypes.TOP_UP_BALANCE, topUp, api)
   ])
 }

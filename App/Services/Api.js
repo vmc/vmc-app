@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://postman-echo.com/post') => {
+const create = (baseURL = 'https://putsreq.com/jDcaxIaqtXN9LYaIEWbq') => {
   // ------
   // STEP 1
   // ------
@@ -15,7 +15,7 @@ const create = (baseURL = 'https://postman-echo.com/post') => {
     // here are some default headers
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'application/json'
     },
     // 10 second timeout...
     timeout: 10000
@@ -39,7 +39,8 @@ const create = (baseURL = 'https://postman-echo.com/post') => {
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
   const postImage = (base64) => api.post('', {body: base64})
-  const getBalance = (publicKey) => api.get('balance', {body: publicKey})
+  const getBalance = (publicKey) => api.get('', {body: publicKey})
+  const topUp = (publicKey, amount) => api.post('', {body: {'publicKey': publicKey, 'amount': amount}})
 
   // ------
   // STEP 3
@@ -59,7 +60,8 @@ const create = (baseURL = 'https://postman-echo.com/post') => {
     getRate,
     getUser,
     postImage,
-    getBalance
+    getBalance,
+    topUp
   }
 }
 
