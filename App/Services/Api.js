@@ -39,6 +39,7 @@ const create = (baseURL = 'https://postman-echo.com/post') => {
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
   const postImage = (base64) => api.post('', {body: base64})
+  const getBalance = (publicKey) => api.get('balance', {body: publicKey})
 
   // ------
   // STEP 3
@@ -57,7 +58,8 @@ const create = (baseURL = 'https://postman-echo.com/post') => {
     getRoot,
     getRate,
     getUser,
-    postImage
+    postImage,
+    getBalance
   }
 }
 

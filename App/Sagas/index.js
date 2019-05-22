@@ -5,11 +5,13 @@ import API from '../Services/Api'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { ImageTypes } from '../Redux/ImageRedux'
+import { BalanceTypes } from '../Redux/BalanceRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { postImage } from './ImageSagas'
+import { getBalance } from './BalanceSagas'
 
 /* ------------- API ------------- */
 
@@ -21,12 +23,8 @@ const api = API.create()
 
 export default function * root () {
   yield all([
-    // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-
-    // some sagas receive extra parameters in addition to an action
-    //takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
-
-    takeLatest(ImageTypes.POST_IMAGE, postImage, api)
+    takeLatest(ImageTypes.POST_IMAGE, postImage, api),
+    takeLatest(BalanceTypes.POST_IMAGE, getBalance, api)
   ])
 }
