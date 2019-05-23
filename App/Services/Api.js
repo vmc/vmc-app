@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://putsreq.com/jDcaxIaqtXN9LYaIEWbq') => {
+const create = (baseURL = 'https://bla.com/adasd') => {
   // ------
   // STEP 1
   // ------
@@ -18,7 +18,7 @@ const create = (baseURL = 'https://putsreq.com/jDcaxIaqtXN9LYaIEWbq') => {
       'Content-Type': 'application/json'
     },
     // 10 second timeout...
-    timeout: 10000
+    timeout: 5000
   })
 
   // ------

@@ -32,7 +32,7 @@ class AccountScreen extends Component {
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
           <Text>Balance: {this.props.balance}</Text>
-          <Text>Error: {this.props.error}</Text>
+          <Text>Error: {JSON.stringify(this.props.error)}</Text>
         </ScrollView>
       </View>
     )

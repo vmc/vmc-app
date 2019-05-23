@@ -6,12 +6,14 @@ import API from '../Services/Api'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { ImageTypes } from '../Redux/ImageRedux'
 import { BalanceTypes } from '../Redux/BalanceRedux'
+import { OrderTypes } from '../Redux/OrderRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { postImage } from './ImageSagas'
 import { getBalance, topUp } from './BalanceSagas'
+import { postOrder } from './OrderSagas'
 
 /* ------------- API ------------- */
 
@@ -26,6 +28,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(ImageTypes.POST_IMAGE, postImage, api),
     takeLatest(BalanceTypes.UPDATE_BALANCE, getBalance, api),
-    takeLatest(BalanceTypes.TOP_UP_BALANCE, topUp, api)
+    takeLatest(BalanceTypes.TOP_UP_BALANCE, topUp, api),
+    takeLatest(OrderTypes.POST_ORDER, postOrder, api)
   ])
 }

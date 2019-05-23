@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   updateBalance: ['publicKey'],
   updateSucces: ['balance'],
-  updateFailure: null,
+  updateFailure: ['error'],
   topUpBalance: ['publicKey', 'amount'],
   topUpSucces: null,
   topUpFailure: null
@@ -35,8 +35,8 @@ export const succes = (state, action) => {
   return state.merge({updating: false, error: null, balance})
 }
 
-export const failure = (state) =>
-  state.merge({ updating: false, error: true})
+export const failure = (state, { error }) =>
+  state.merge({ updating: false, error})
 
 export const topUp = (state, {publicKey, amount}) =>
   state.merge({ updating: true, publicKey, amount })
