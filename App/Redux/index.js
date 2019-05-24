@@ -8,7 +8,8 @@ export const reducers = combineReducers({
   image: require('./ImageRedux').reducer,
   key: require('./KeyRedux').reducer,
   balance: require('./BalanceRedux').reducer,
-  order: require('./OrderRedux.js').reducer
+  order: require('./OrderRedux').reducer,
+  ticket: require('./TicketRedux').reducer
 })
 
 export default () => {
