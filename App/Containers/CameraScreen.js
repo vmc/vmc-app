@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { RNCamera } from 'react-native-camera'
@@ -8,24 +8,23 @@ import ImageActions from '../Redux/ImageRedux'
 import styles from './Styles/CameraScreenStyles'
 
 class CameraScreen extends Component {
-
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <RNCamera
           ref={ref => {
-            this.camera = ref;
+            this.camera = ref
           }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
           permissionDialogTitle={'Permission to use camera'}
           permissionDialogMessage={'We need your permission to use your camera phone'}
           onBarCodeRead={({ barcodes }) => {
-            console.log(barcodes);
+            console.log(barcodes)
           }}
           captureAudio={false}
         />
@@ -35,15 +34,15 @@ class CameraScreen extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 
-  takePicture = async function() {
+  takePicture = async function () {
     if (this.camera) {
-      const options = { quality: 0.1, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      this.props.postImage(data.base64);
-      this.props.navigation.pop();
+      const options = { quality: 0.1, base64: true }
+      const data = await this.camera.takePictureAsync(options)
+      this.props.postImage(data.base64)
+      this.props.navigation.pop()
     }
   };
 }

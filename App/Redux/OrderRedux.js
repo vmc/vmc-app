@@ -38,7 +38,6 @@ export const succes = (state, action) => {
 export const failure = (state, { error }) =>
   state.merge({ posting: false, error, ticketId: null})
 
-
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {

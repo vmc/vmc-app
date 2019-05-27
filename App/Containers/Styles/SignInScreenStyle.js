@@ -3,7 +3,7 @@ import { ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   inputKey: {
-    color: "black",
+    color: 'black',
     flex: 1,
     marginLeft: 20
   }

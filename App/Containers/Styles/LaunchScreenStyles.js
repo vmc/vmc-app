@@ -4,10 +4,10 @@ import { Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    flex: 1,
+    flex: 1
   },
   callout: {
-    backgroundColor: '#0067B2', 
+    backgroundColor: '#0067B2',
     padding: 10,
     position: 'relative'
   },
@@ -28,13 +28,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: 15,
+    borderRadius: 15
   },
   annotationFill: {
     width: 30,
     height: 30,
     borderRadius: 15,
     backgroundColor: '#0067B2',
-    transform: [{ scale: 0.6 }],
-  },
+    transform: [{ scale: 0.6 }]
+  }
 })

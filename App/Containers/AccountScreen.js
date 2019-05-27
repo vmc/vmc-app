@@ -9,17 +9,16 @@ import BalanceActions from '../Redux/BalanceRedux'
 import styles from './Styles/AccountScreenStyle'
 
 class AccountScreen extends Component {
-
   static navigationOptions = {
     drawerLabel: 'Account',
     drawerIcon: ({tintColor}) => (
-      <Icon name="account-circle" size={20} color={tintColor} />
-    ),
+      <Icon name='account-circle' size={20} color={tintColor} />
+    )
   };
 
   _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
+    await AsyncStorage.clear()
+    this.props.navigation.navigate('Auth')
   };
 
   render () {
@@ -27,9 +26,9 @@ class AccountScreen extends Component {
       <View>
         <Header {...this.props} />
         <ScrollView style={styles.container}>
-          <Button text="SIGN OUT" onPress={this._signOutAsync} />
-          <Button text="Balance update" onPress={() => this.props.updateBalance(this.props.publicKey)} />
-          <Button text="Balance top up" onPress={() => this.props.topUp(this.props.publicKey, 10)} />
+          <Button text='SIGN OUT' onPress={this._signOutAsync} />
+          <Button text='Balance update' onPress={() => this.props.updateBalance(this.props.publicKey)} />
+          <Button text='Balance top up' onPress={() => this.props.topUp(this.props.publicKey, 10)} />
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
           <Text>Balance: {this.props.balance}</Text>

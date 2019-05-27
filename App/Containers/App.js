@@ -9,18 +9,18 @@ import firebase from 'react-native-firebase'
 
 firebase.messaging().getToken()
 .then(fcmToken => {
-	if (fcmToken) {
+  if (fcmToken) {
   		console.log(fcmToken)
-	} else {
+  } else {
     console.log('no token')
   }
-});
+})
 
 // create our store
 const store = createStore()
 
 /**
- * Provides an entry point into our application.  Both index.ios.js 
+ * Provides an entry point into our application.  Both index.ios.js
  * and index.android.js call this component first.
  *
  * We create our Redux store here, put it into a provider and then bring in our

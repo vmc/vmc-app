@@ -3,6 +3,7 @@ package com.vmc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.oblador.keychain.KeychainPackage;
 import io.invertase.firebase.RNFirebasePackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeConfigPackage(),
             new RandomBytesPackage(),
             new KeychainPackage(),
             new RNFirebasePackage(),

@@ -39,5 +39,5 @@ export const failure = (state) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_IMAGE]: post,
   [Types.POST_SUCCES]: succes,
-  [Types.POST_FAILURE]: failure,
+  [Types.POST_FAILURE]: failure
 })

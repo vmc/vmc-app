@@ -12,7 +12,7 @@ const ApplicationStyles = {
       backgroundColor: Colors.transparent
     },
     container: {
-      flex: 1,
+      flex: 1
     },
     section: {
       margin: Metrics.section,
@@ -36,7 +36,7 @@ const ApplicationStyles = {
       fontSize: 14,
       color: Colors.text
     }
-  },
+  }
 }
 
 export default ApplicationStyles

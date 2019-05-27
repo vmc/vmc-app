@@ -1,4 +1,4 @@
-#  S2G
+#  VMC
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 
 ## :arrow_up: How to Setup
@@ -9,6 +9,8 @@
 
 **Step 3:** Install the Application with `yarn` or `npm i`
 
+**Step 4:** run `./node_modules/.bin/rn-nodeify --hack --install` (https://www.npmjs.com/package/rn-nodeify)
+
 
 ## :arrow_forward: How to Run App
 
@@ -17,7 +19,6 @@
   * for iOS
     * run `react-native run-ios`
   * for Android
-    * Run Genymotion
     * run `react-native run-android`
 
 ## :no_entry_sign: Standard Compliant

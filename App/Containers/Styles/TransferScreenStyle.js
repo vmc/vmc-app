@@ -7,26 +7,26 @@ export default StyleSheet.create({
   },
   amountTo: {
     borderBottomWidth: 1,
-    borderColor: "lightgrey",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingBottom: Platform.OS === "ios" ? 15 : 0
+    borderColor: 'lightgrey',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: Platform.OS === 'ios' ? 15 : 0
   },
   publicKeyTo: {
     borderBottomWidth: 1,
-    borderColor: "lightgrey",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'lightgrey',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingBottom: 0
   },
   inputField: {
-    color: "black",
+    color: 'black',
     flex: 1
   },
   amountToText: {
-    fontWeight: "bold", 
-    color: "black"
+    fontWeight: 'bold',
+    color: 'black'
   }
 })

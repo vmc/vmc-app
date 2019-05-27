@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://35.204.203.122:5000') => {
+const create = (baseURL = 'http://test.vmc.ai:5000') => {
   // ------
   // STEP 1
   // ------
@@ -35,11 +35,11 @@ const create = (baseURL = 'http://35.204.203.122:5000') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  
+
   const getBalance = (publicKey) => api.get('getBalance/' + publicKey)
   const topUp = ([publicKey, amount]) => api.post('deposit', {destination_id: publicKey, amount: amount})
   const postOrder = ([ticketType, publicKey, signedBatch]) => {
-    api.post('buyTicket', {json : {'ticket_ref': ticketType, 'source_id': publicKey, signedBatch}})
+    api.post('buyTicket', {json: {'ticket_ref': ticketType, 'source_id': publicKey, signedBatch}})
   }
   const getTicketTypes = () => api.get('getTicketTypes')
 

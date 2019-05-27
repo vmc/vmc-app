@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import BalanceActions from '../Redux/BalanceRedux'
 
-export function* getBalance(api, data) {
+export function * getBalance (api, data) {
   const response = yield call(api.getBalance, data.publicKey)
   if (response.ok) {
     balance = response.data
@@ -11,7 +11,7 @@ export function* getBalance(api, data) {
   }
 }
 
-export function* topUp(api, data) {
+export function * topUp (api, data) {
   const response = yield call(api.topUp, [data.publicKey, data.amount])
   if (response.ok) {
     yield put(BalanceActions.updateBalance(data.publicKey))

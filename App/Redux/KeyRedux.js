@@ -30,5 +30,5 @@ export const logout = (state) =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN]: login,
-  [Types.LOGOUT]: logout,
+  [Types.LOGOUT]: logout
 })
