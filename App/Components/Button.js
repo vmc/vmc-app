@@ -7,12 +7,12 @@ export default class FullButton extends Component {
   static propTypes = {
     text: PropTypes.string,
     onPress: PropTypes.func,
-    styles: PropTypes.object
+    style: PropTypes.object
   }
 
   render () {
     return (
-      <TouchableOpacity style={[styles.button, this.props.styles]} onPress={this.props.onPress}>
+      <TouchableOpacity style={[styles.button, this.props.style]} onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text && this.props.text.toUpperCase()}</Text>
       </TouchableOpacity>
     )

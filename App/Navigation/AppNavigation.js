@@ -8,6 +8,7 @@ import AuthLoadingScreen from '../Containers/AuthLoadingScreen'
 import SignInScreen from '../Containers/SignInScreen'
 import AccountScreen from '../Containers/AccountScreen'
 import CameraScreen from '../Containers/CameraScreen'
+import TicketScreen from '../Containers/TicketScreen'
 // import TransferScreen from '../Containers/TransferScreen'
 import Images from '../Themes/Images'
 
@@ -30,7 +31,8 @@ const PrimaryNav = createDrawerNavigator({
       )
     }
   },
-  AccountScreen: {screen: AccountScreen}
+  AccountScreen: {screen: AccountScreen},
+  TicketScreen: {screen: TicketScreen}
   /* TransferScreen: {screen: TransferScreen} */
 }, {
   // Default config for all screens

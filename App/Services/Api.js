@@ -39,7 +39,11 @@ const create = (baseURL = 'http://test.vmc.ai:5000') => {
   const getBalance = (publicKey) => api.get('getBalance/' + publicKey)
   const topUp = ([publicKey, amount]) => api.post('deposit', {destination_id: publicKey, amount: amount})
   const postOrder = ([ticketType, publicKey, signedBatch]) => {
-    api.post('buyTicket', {json: {'ticket_ref': ticketType, 'source_id': publicKey, signedBatch}})
+    return api.post('buyTicket', {
+      ticket_ref: ticketType,
+      source_id: publicKey,
+      signed_batch: signedBatch
+    })
   }
   const getTicketTypes = () => api.get('getTicketTypes')
 
