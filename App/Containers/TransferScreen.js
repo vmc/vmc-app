@@ -1,3 +1,5 @@
+// OLD DEMO PAGE
+
 import React, { Component } from 'react'
 import { View, ScrollView, Text, TextInput, Keyboard, Alert } from 'react-native'
 import { connect } from 'react-redux'

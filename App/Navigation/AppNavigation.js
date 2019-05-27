@@ -31,7 +31,7 @@ const PrimaryNav = createDrawerNavigator({
 	  }
   },
 	AccountScreen: {screen: AccountScreen},
-	TransferScreen: {screen: TransferScreen}
+	/* TransferScreen: {screen: TransferScreen} */
 }, {
   // Default config for all screens
   headerMode: 'float',

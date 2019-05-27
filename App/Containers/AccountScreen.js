@@ -28,7 +28,8 @@ class AccountScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={styles.container}>
           <Button text="SIGN OUT" onPress={this._signOutAsync} />
-          <Button text="Balance update" onPress={() => this.props.topUp(this.props.publicKey, 10)} />
+          <Button text="Balance update" onPress={() => this.props.updateBalance(this.props.publicKey)} />
+          <Button text="Balance top up" onPress={() => this.props.topUp(this.props.publicKey, 10)} />
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
           <Text>Balance: {this.props.balance}</Text>
@@ -50,7 +51,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    topUp: (publicKey, amount) => dispatch(BalanceActions.topUpBalance(publicKey, amount))
+    topUp: (publicKey, amount) => dispatch(BalanceActions.topUpBalance(publicKey, amount)),
+    updateBalance: (publicKey) => dispatch(BalanceActions.updateBalance(publicKey))
   }
 }
 

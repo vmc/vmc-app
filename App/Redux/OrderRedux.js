@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  postOrder: ['ticketType', 'publicKey', 'publicKeyTo', 'price', 'signedBatch'],
+  postOrder: ['ticketType', 'publicKey', 'signedBatch'],
   postSucces: ['ticketId'],
   postFailure: ['error']
 })
@@ -17,8 +17,6 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   ticketType: '',
   publicKey: '',
-  publicKeyTo: '',
-  price: null,
   signedBatch: null,
   posting: false,
   error: null,
@@ -28,8 +26,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const post = (state, action) => {
-  const { ticketType, publicKey, publicKeyTo, price, signedBatch } = action
-  state.merge({ ticketType, publicKey, publicKeyTo, price, signedBatch, posting: true })
+  const { ticketType, publicKey, signedBatch } = action
+  state.merge({ ticketType, publicKey, signedBatch, posting: true })
 }
 
 export const succes = (state, action) => {

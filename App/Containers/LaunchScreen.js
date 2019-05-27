@@ -9,8 +9,9 @@ import firebase, { Notification } from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
+import Secrets from 'react-native-config'
 
-Mapbox.setAccessToken('pk.eyJ1IjoibWF4dm1jIiwiYSI6ImNqc2Q3czI4aTBzbWU0YWxuMjRxdDRpZ3QifQ.Z2pufOgsgEFeQ-1mSd63pw');
+Mapbox.setAccessToken(Secrets.MapBoxToken);
 
 export default class LaunchScreen extends Component {
 

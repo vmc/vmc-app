@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://bla.com/adasd') => {
+const create = (baseURL = 'http://35.204.203.122:5000') => {
   // ------
   // STEP 1
   // ------
@@ -35,14 +35,11 @@ const create = (baseURL = 'https://bla.com/adasd') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getRoot = () => api.get('')
-  const getRate = () => api.get('rate_limit')
-  const getUser = (username) => api.get('search/users', {q: username})
-  const postImage = (base64) => api.post('', {body: base64})
-  const getBalance = (publicKey) => api.get('', {body: publicKey})
-  const topUp = (publicKey, amount) => api.post('', {body: {'publicKey': publicKey, 'amount': amount}})
-  const postOrder = (ticketType, publicKey, publicKeyTo, price, signedBatch) => {
-    api.post('', {body: ticketType, publicKey, publicKeyTo, price, signedBatch})
+  
+  const getBalance = (publicKey) => api.get('getBalance/' + publicKey)
+  const topUp = ([publicKey, amount]) => api.post('deposit', {destination_id: publicKey, amount: amount})
+  const postOrder = ([ticketType, publicKey, signedBatch]) => {
+    api.post('buyTicket', {json : {'ticket_ref': ticketType, 'source_id': publicKey, signedBatch}})
   }
   const getTicketTypes = () => api.get('getTicketTypes')
 
@@ -60,10 +57,6 @@ const create = (baseURL = 'https://bla.com/adasd') => {
   //
   return {
     // a list of the API functions from step 2
-    getRoot,
-    getRate,
-    getUser,
-    postImage,
     getBalance,
     topUp,
     postOrder,
