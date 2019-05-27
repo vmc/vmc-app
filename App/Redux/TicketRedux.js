@@ -23,7 +23,7 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const get = (state) => {
-  state.merge({ posting: true })
+  return state.merge({ posting: true })
 }
 
 export const success = (state, action) => {

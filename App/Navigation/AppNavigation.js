@@ -24,9 +24,9 @@ const PrimaryNav = createDrawerNavigator({
       headerMode: 'none'
     }),
     navigationOptions: {
-      drawerLabel: 'Book a ride',
+      drawerLabel: 'Buy a ticket',
       drawerIcon: ({tintColor}) => (
-        <Icon name='gps-fixed' size={20} color={tintColor} />
+        <Icon name='local-activity' size={20} color={tintColor} />
       )
     }
   },

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Button, AsyncStorage, TextInput, Image } from 'react-native'
 import styles from './Styles/SignInScreenStyle'
 import Images from '../Themes/Images'
-const secp256k1 = require('secp256k1')
 import * as Keychain from 'react-native-keychain'
 import { connect } from 'react-redux'
 import KeyActions from '../Redux/KeyRedux'
+const secp256k1 = require('secp256k1')
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
@@ -43,7 +43,7 @@ class SignInScreen extends React.Component {
         secp256k1.privateKeyVerify(Buffer.from(this.state.privateKey, 'hex'))
       ) {
         await Keychain.setGenericPassword('privateKey', this.state.privateKey)
-        publicKey = secp256k1
+        const publicKey = secp256k1
           .publicKeyCreate(Buffer.from(this.state.privateKey, 'hex'))
           .toString('hex')
         await AsyncStorage.setItem('publicKey', publicKey)
