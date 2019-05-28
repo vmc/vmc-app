@@ -5,7 +5,7 @@ export function * getTicketTypes (api, action) {
   const response = yield call(api.getTicketTypes)
 
   if (response.ok) {
-    ticketTypes = response.data
+    const ticketTypes = response.data
     yield put(TicketActions.getSuccess(ticketTypes))
   } else {
     yield put(TicketActions.getFailure(response.problem))

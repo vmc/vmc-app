@@ -19,7 +19,7 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   publicKey: '',
-  balance: null,
+  balance: 0,
   updating: null,
   error: null,
   amount: null
@@ -36,7 +36,7 @@ export const succes = (state, action) => {
 }
 
 export const failure = (state, { error }) =>
-  state.merge({ updating: false, error})
+  state.merge({ updating: false, error })
 
 export const topUp = (state, {publicKey, amount}) =>
   state.merge({ updating: true, publicKey, amount })

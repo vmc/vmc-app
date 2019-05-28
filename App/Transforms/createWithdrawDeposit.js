@@ -5,7 +5,7 @@ const utf8 = require('utf8')
 const { createHash } = require('crypto')
 const secp256k1 = require('secp256k1')
 
-export default createWithdrawDeposit = (privateKeyHex, amount, operation) => {
+const createWithdrawDeposit = (privateKeyHex, amount, operation) => {
   // Transform hex private key to Buffer object
   const privateKey = Buffer.from(privateKeyHex, 'hex')
 
@@ -124,3 +124,5 @@ export default createWithdrawDeposit = (privateKeyHex, amount, operation) => {
 
   return transfer
 }
+
+export default createWithdrawDeposit

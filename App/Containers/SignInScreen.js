@@ -5,6 +5,8 @@ import Images from '../Themes/Images'
 import * as Keychain from 'react-native-keychain'
 import { connect } from 'react-redux'
 import KeyActions from '../Redux/KeyRedux'
+import BalanceActions from '../Redux/BalanceRedux'
+
 const secp256k1 = require('secp256k1')
 
 class SignInScreen extends React.Component {
@@ -48,6 +50,7 @@ class SignInScreen extends React.Component {
           .toString('hex')
         await AsyncStorage.setItem('publicKey', publicKey)
         this.props.login(publicKey)
+        this.props.updateBalance(publicKey)
         this.props.navigation.navigate('App')
       } else {
         alert('Please enter a valid private key')
@@ -60,6 +63,7 @@ class SignInScreen extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateBalance: (publicKey) => dispatch(BalanceActions.updateBalance(publicKey)),
     login: (publicKey) => dispatch(KeyActions.login(publicKey))
   }
 }

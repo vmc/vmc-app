@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { View, AsyncStorage, Text } from 'react-native'
+import { View, AsyncStorage, Alert } from 'react-native'
 import Header from '../Components/Header'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import TicketActions from '../Redux/TicketRedux'
+import OrderActions from '../Redux/OrderRedux'
+import Button from '../Components/Button'
+import BoughtTicketCard from '../Components/BoughtTicketCard'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler'
 
 class TicketScreen extends Component {
   static navigationOptions = {
@@ -16,36 +18,52 @@ class TicketScreen extends Component {
     )
   };
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      boughtTickets: null
-    }
-  }
-
   componentWillMount () {
-    this.props.getTicketTypes()
-    this.getTickets()
+
   }
 
   componentWillUnmount () {
 
   }
 
-  getTickets = async () => {
-    const boughtTickets = await AsyncStorage.getItem('boughtTickets')
-    if (boughtTickets !== null) {
-      this.setState({boughtTickets: boughtTickets})
-    }
+  deleteHistConfirm = () => {
+    Alert.alert(
+      'Warning!',
+      'You are about to delete all your tickets. Are you sure you want to do this?',
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {text: 'Yes', onPress: () => this.deleteHist()}
+      ],
+      {cancelable: false}
+    )    
+  }
+
+  deleteHist = async () => {
+    await AsyncStorage.removeItem('boughtTickets')
+    this.props.deleteHistory()
   }
 
   render () {
+    var tickets
+    if (this.props.boughtTickets) {
+      tickets = this.props.boughtTickets.map((ticket, i) => {
+        return (
+          <BoughtTicketCard key={i} data={ticket} />
+        )
+      })
+    } else {
+      tickets = null
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header {...this.props} />
         <ScrollView style={[styles.container, {flex: 1}]}>
-          <Text style={{marginBottom: 20}}>{this.state.boughtTickets}</Text>
+          {tickets}
+          <Button style={{marginBottom: 20, backgroundColor: 'red'}} text='Delete history' onPress={() => this.deleteHistConfirm()} />
         </ScrollView>
       </View>
     )
@@ -54,13 +72,14 @@ class TicketScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ticketTypes: state.ticket.ticketTypes
+    ticketTypes: state.ticket.ticketTypes,
+    boughtTickets: state.order.boughtTickets
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTicketTypes: () => dispatch(TicketActions.getTicket())
+    deleteHistory: () => dispatch(OrderActions.postSucces([]))
   }
 }
 

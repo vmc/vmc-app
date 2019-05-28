@@ -31,8 +31,7 @@ class AccountScreen extends Component {
           <Button text='Balance top up' onPress={() => this.props.topUp(this.props.publicKey, 10)} />
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
-          <Text>Balance: {this.props.balance}</Text>
-          <Text>Error: {JSON.stringify(this.props.error)}</Text>
+          <Text>Balance: {JSON.stringify(this.props.balance)}</Text>
         </ScrollView>
       </View>
     )

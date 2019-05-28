@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import OrderActions from '../Redux/OrderRedux'
-import { AsyncStorage } from 'react-native'
+import BalanceActions from '../Redux/BalanceRedux'
+import { AsyncStorage, ToastAndroid } from 'react-native'
 
 export function * postOrder (api, data) {
   const response = yield call(api.postOrder, [data.ticketType, data.publicKey, data.signedBatch])
@@ -14,13 +15,15 @@ export function * postOrder (api, data) {
       } else {
         boughtTickets = [ticketId]
       }
-      console.log(boughtTickets)
       yield call([AsyncStorage, 'setItem'], 'boughtTickets', JSON.stringify(boughtTickets))
+      yield put(OrderActions.postSucces(boughtTickets))
+      yield put(BalanceActions.updateBalance(data.publicKey))
+      ToastAndroid.show('Ticket bought!', ToastAndroid.SHORT)
     } catch (e) {
       alert(e)
     }
-    yield put(OrderActions.postSucces(ticketId))
   } else {
-    yield put(OrderActions.postFailure('ERROR'))
+    yield put(OrderActions.postFailure(response.problem))
+    ToastAndroid.show('You do not have enough money to buy that!', ToastAndroid.SHORT)
   }
 }

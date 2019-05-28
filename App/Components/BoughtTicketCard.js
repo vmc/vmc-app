@@ -3,9 +3,9 @@ import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Button from '../Components/Button'
-import styles from './Styles/TicketCardStyles'
+import styles from './Styles/BoughtTicketCardStyles'
 import Modal from 'react-native-modal'
-import OrderActions from '../Redux/OrderRedux'
+import QRCode from 'react-native-qrcode'
 
 class TicketCard extends Component {
   static propTypes = {
@@ -15,20 +15,15 @@ class TicketCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isShowingText: true
+      isVisible: false
     }
-  }
-
-  buyTicket = (ticketData) => {
-    this.props.postOrder(ticketData.ticketReference, this.props.publicKey, 'test')
-    this.setState({isVisible: false})
   }
 
   render () {
     return (
       <View>
         <Button
-          text={this.props.data.company + ' - ' + this.props.data.title}
+          text={this.props.data.company + ' - ' + this.props.data.title + ' - ' + this.props.data.ticketId}
           onPress={() => this.setState({isVisible: true})}
         />
         <Modal
@@ -39,6 +34,10 @@ class TicketCard extends Component {
           useNativeDriver={true}
         >
           <View style={styles.modal}>
+            <QRCode
+              value={this.props.data.ticketId}
+              size={200}
+            />
             <Text>Company: {this.props.data.company}</Text>
             <Text>Price: {this.props.data.price}</Text>
             <Text>Type: {this.props.data.title}</Text>
@@ -46,11 +45,6 @@ class TicketCard extends Component {
               <Button
                 text='Cancel'
                 onPress={() => this.setState({isVisible: false})}
-              />
-              <Button
-                text='Buy'
-                onPress={() => this.buyTicket(this.props.data)}
-                style={styles.buyButton}
               />
             </View>
           </View>
@@ -62,14 +56,13 @@ class TicketCard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ticketTypes: state.ticket.ticketTypes,
-    publicKey: state.key.publicKey
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postOrder: (ticketType, sourceId, signedBatch) => dispatch(OrderActions.postOrder(ticketType, sourceId, signedBatch))
+
   }
 }
 

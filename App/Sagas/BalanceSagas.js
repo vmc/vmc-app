@@ -4,7 +4,7 @@ import BalanceActions from '../Redux/BalanceRedux'
 export function * getBalance (api, data) {
   const response = yield call(api.getBalance, data.publicKey)
   if (response.ok) {
-    balance = response.data
+    const balance = response.data.balance
     yield put(BalanceActions.updateSucces(balance))
   } else {
     yield put(BalanceActions.updateFailure())

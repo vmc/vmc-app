@@ -6,7 +6,7 @@ import {AsyncStorage} from 'react-native';
 
 const { Types, Creators } = createActions({
   postOrder: ['ticketType', 'publicKey', 'signedBatch'],
-  postSucces: ['ticketId'],
+  postSucces: ['boughtTickets'],
   postFailure: ['error']
 })
 
@@ -21,25 +21,22 @@ export const INITIAL_STATE = Immutable({
   signedBatch: '',
   posting: false,
   error: null,
-  ticketId: ''
+  boughtTickets: ''
 })
 
 /* ------------- Reducers ------------- */
 
 export const post = (state, action) => {
-  console.log(state)
   const { ticketType, publicKey, signedBatch } = action
-  console.log(ticketType, publicKey, signedBatch)
-  return state.merge({ ticketType, publicKey, signedBatch, posting: true })
+  return state.merge({ ticketType, publicKey, signedBatch, posting: true, error: null })
 }
 
 export const succes = (state, action) => {
-  const { ticketId } = action
-  return state.merge({ posting: false, error: null, ticketId: ticketId.ticket_id })
+  return state.merge({ posting: false, error: null, boughtTickets: action.boughtTickets })
 }
 
 export const failure = (state, { error }) =>
-  state.merge({ posting: false, error, ticketId: null })
+  state.merge({ posting: false, error })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { View, Text, ToastAndroid } from 'react-native'
 import Header from '../Components/Header'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -49,6 +49,7 @@ class LaunchScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={styles.container}>
           {tickets}
+          <Text>Balance: {this.props.balance}</Text>
         </ScrollView>
       </View>
     )
@@ -57,7 +58,9 @@ class LaunchScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ticketTypes: state.ticket.ticketTypes
+    ticketTypes: state.ticket.ticketTypes,
+    error: state.order.error,
+    balance: state.balance.balance
   }
 }
 

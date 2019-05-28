@@ -5,7 +5,8 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   modal: {
     backgroundColor: 'white',
-    padding: 10
+    padding: 10,
+    alignItems: 'center'
   },
   buttonArea: {
     flexDirection: 'row',
