@@ -25,11 +25,20 @@ class TicketCard extends Component {
   }
 
   render () {
+    var iconType
+    if (this.props.data.company === 'Metro') {
+      iconType = 'subway'
+    } else if (this.props.data.company === 'Tram') {
+      iconType = 'tram'
+    } else {
+      iconType = 'local-activity'
+    }
     return (
       <View>
         <Button
           text={this.props.data.company + ' - ' + this.props.data.title}
           onPress={() => this.setState({isVisible: true})}
+          icon={iconType}
         />
         <Modal
           isVisible={this.state.isVisible}
@@ -37,6 +46,7 @@ class TicketCard extends Component {
           swipeDirection='down'
           onBackdropPress={() => this.setState({ isVisible: false })}
           useNativeDriver={true}
+          style={{borderRadius: 10}}
         >
           <View style={styles.modal}>
             <Text>Company: {this.props.data.company}</Text>

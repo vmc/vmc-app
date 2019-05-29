@@ -49,7 +49,7 @@ class LaunchScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={styles.container}>
           {tickets}
-          <Text>Balance: {this.props.balance}</Text>
+          <Text style={{color: 'black'}}>Balance: {this.props.balance}</Text>
         </ScrollView>
       </View>
     )

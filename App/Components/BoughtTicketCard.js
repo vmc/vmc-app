@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Button from '../Components/Button'
 import styles from './Styles/BoughtTicketCardStyles'
 import Modal from 'react-native-modal'
-import QRCode from 'react-native-qrcode'
+import QRCode from 'react-native-qrcode-svg'
 
 class TicketCard extends Component {
   static propTypes = {
@@ -20,11 +20,20 @@ class TicketCard extends Component {
   }
 
   render () {
+    var iconType
+    if (this.props.data.company === 'Metro') {
+      iconType = 'subway'
+    } else if (this.props.data.company === 'Tram') {
+      iconType = 'tram'
+    } else {
+      iconType = 'local-activity'
+    }
     return (
       <View>
         <Button
           text={this.props.data.company + ' - ' + this.props.data.title + ' - ' + this.props.data.ticketId}
           onPress={() => this.setState({isVisible: true})}
+          icon={iconType}
         />
         <Modal
           isVisible={this.state.isVisible}

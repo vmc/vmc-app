@@ -38,7 +38,7 @@ class TicketScreen extends Component {
         {text: 'Yes', onPress: () => this.deleteHist()}
       ],
       {cancelable: false}
-    )    
+    )
   }
 
   deleteHist = async () => {
@@ -63,7 +63,7 @@ class TicketScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={[styles.container, {flex: 1}]}>
           {tickets}
-          <Button style={{marginBottom: 20, backgroundColor: 'red'}} text='Delete history' onPress={() => this.deleteHistConfirm()} />
+          <Button icon='delete' style={{marginBottom: 20, backgroundColor: 'red'}} text='Delete history' onPress={() => this.deleteHistConfirm()} />
         </ScrollView>
       </View>
     )

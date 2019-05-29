@@ -6,11 +6,14 @@ export default StyleSheet.create({
     marginVertical: 5,
     borderColor: 'black',
     borderWidth: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+    elevation: 3
   },
   buttonText: {
-    margin: 18,
-    textAlign: 'center',
     color: 'black',
     fontSize: Fonts.size.medium,
     fontFamily: Fonts.type.bold

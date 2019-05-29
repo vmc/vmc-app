@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ScrollView, Text, AsyncStorage, Image } from 'react-native'
+import { View, ScrollView, Text, AsyncStorage, Image, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -16,6 +16,21 @@ class AccountScreen extends Component {
     )
   };
 
+  _signOutAsyncConfirm = () => {
+    Alert.alert(
+      'Warning!',
+      'You are about to log out and remove all your data. Are you sure you want to do this?',
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {text: 'Yes', onPress: () => this._signOutAsync()}
+      ],
+      {cancelable: false}
+    )
+  }
+
   _signOutAsync = async () => {
     await AsyncStorage.clear()
     this.props.navigation.navigate('Auth')
@@ -26,9 +41,9 @@ class AccountScreen extends Component {
       <View>
         <Header {...this.props} />
         <ScrollView style={styles.container}>
-          <Button text='SIGN OUT' onPress={this._signOutAsync} />
-          <Button text='Balance update' onPress={() => this.props.updateBalance(this.props.publicKey)} />
-          <Button text='Balance top up' onPress={() => this.props.topUp(this.props.publicKey, 10)} />
+          <Button icon='exit-to-app' text='SIGN OUT' onPress={this._signOutAsyncConfirm} />
+          <Button icon='refresh' text='Balance update' onPress={() => this.props.updateBalance(this.props.publicKey)} />
+          <Button icon='euro-symbol' text='Balance top up' onPress={() => this.props.topUp(this.props.publicKey, 10)} />
           <Image style={{height: 200}} source={{uri: `data:image/gif;base64,${this.props.base64}`}} />
           <Text>Public key: {this.props.publicKey}</Text>
           <Text>Balance: {JSON.stringify(this.props.balance)}</Text>
