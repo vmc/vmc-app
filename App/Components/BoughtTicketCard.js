@@ -40,7 +40,7 @@ class TicketCard extends Component {
           onSwipeComplete={() => this.setState({ isVisible: false })}
           swipeDirection='down'
           onBackdropPress={() => this.setState({ isVisible: false })}
-          useNativeDriver={true}
+          useNativeDriver
         >
           <View style={styles.modal}>
             <QRCode

@@ -32,7 +32,7 @@ export const success = (state, action) => {
 }
 
 export const failure = (state, { error }) =>
-  state.merge({ posting: false, error, ticketTypes: null})
+  state.merge({ posting: false, error, ticketTypes: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

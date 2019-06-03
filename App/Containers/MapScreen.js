@@ -1,7 +1,8 @@
+/* global alert */
+
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, PermissionsAndroid } from 'react-native'
 import Header from '../Components/Header'
-import { PermissionsAndroid } from 'react-native'
 import Mapbox from '@mapbox/react-native-mapbox-gl'
 import Geolocation from 'react-native-geolocation-service'
 import firebase, { Notification } from 'react-native-firebase'
@@ -79,7 +80,7 @@ export default class MapScreen extends Component {
         this._map.flyTo([position.coords.longitude, position.coords.latitude])
       },
       (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000}
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     )
   }
 

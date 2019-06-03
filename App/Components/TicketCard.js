@@ -45,7 +45,7 @@ class TicketCard extends Component {
           onSwipeComplete={() => this.setState({ isVisible: false })}
           swipeDirection='down'
           onBackdropPress={() => this.setState({ isVisible: false })}
-          useNativeDriver={true}
+          useNativeDriver
           style={{borderRadius: 10}}
         >
           <View style={styles.modal}>

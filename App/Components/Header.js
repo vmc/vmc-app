@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, TouchableOpacity, Image } from 'react-native'
 import styles from './Styles/HeaderStyle'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Images from '../Themes/Images'

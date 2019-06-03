@@ -7,7 +7,6 @@ import ImageActions from '../Redux/ImageRedux'
 import styles from './Styles/CameraScreenStyles'
 
 class CameraScreen extends Component {
-
   render () {
     return (
       <View style={styles.container}>

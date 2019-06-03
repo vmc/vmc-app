@@ -1,4 +1,5 @@
 // OLD DEMO PAGE
+/* global alert */
 
 import React, { Component } from 'react'
 import { View, ScrollView, Text, TextInput, Keyboard, Alert } from 'react-native'

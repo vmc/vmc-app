@@ -1,3 +1,4 @@
+/* global alert */
 import { call, put } from 'redux-saga/effects'
 import OrderActions from '../Redux/OrderRedux'
 import BalanceActions from '../Redux/BalanceRedux'

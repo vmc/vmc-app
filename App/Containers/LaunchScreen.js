@@ -7,7 +7,7 @@ import TicketActions from '../Redux/TicketRedux'
 import TicketCard from '../Components/TicketCard'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler'
 
 class LaunchScreen extends Component {
   static navigationOptions = {

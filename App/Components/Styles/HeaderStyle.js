@@ -9,9 +9,9 @@ export default StyleSheet.create({
     backgroundColor: '#005493'
   },
   headerText: {
-  	color: 'white'
+    color: 'white'
   },
   rightView: {
-  	width: 25
+    width: 25
   }
 })
