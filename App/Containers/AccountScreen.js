@@ -32,6 +32,7 @@ class AccountScreen extends Component {
   }
 
   _signOutAsync = async () => {
+    this.props.reset()
     await AsyncStorage.clear()
     this.props.navigation.navigate('Auth')
   };
@@ -65,7 +66,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     topUp: (publicKey, amount) => dispatch(BalanceActions.topUpBalance(publicKey, amount)),
-    updateBalance: (publicKey) => dispatch(BalanceActions.updateBalance(publicKey))
+    updateBalance: (publicKey) => dispatch(BalanceActions.updateBalance(publicKey)),
+    reset: () => dispatch({ type: 'RESET_STORE' })
   }
 }
 

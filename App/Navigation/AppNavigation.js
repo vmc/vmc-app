@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import LaunchScreen from '../Containers/LaunchScreen'
 import AuthLoadingScreen from '../Containers/AuthLoadingScreen'
 import SignInScreen from '../Containers/SignInScreen'
+import CreateAccountScreen from '../Containers/CreateAccountScreen'
 import AccountScreen from '../Containers/AccountScreen'
 import CameraScreen from '../Containers/CameraScreen'
 import TicketScreen from '../Containers/TicketScreen'
@@ -61,7 +62,7 @@ const PrimaryNav = createDrawerNavigator({
     </View>
 })
 
-const AuthStack = createStackNavigator({ SignIn: SignInScreen })
+const AuthStack = createStackNavigator({ SignIn: SignInScreen, CreateAccount: CreateAccountScreen })
 
 export default createAppContainer(createSwitchNavigator(
   {

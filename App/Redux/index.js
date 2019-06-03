@@ -3,7 +3,7 @@ import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 
 /* ------------- Assemble The Reducers ------------- */
-export const reducers = combineReducers({
+const appReducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   image: require('./ImageRedux').reducer,
   key: require('./KeyRedux').reducer,
@@ -11,6 +11,13 @@ export const reducers = combineReducers({
   order: require('./OrderRedux').reducer,
   ticket: require('./TicketRedux').reducer
 })
+
+export const reducers = (state, action) => {
+  if (action.type === 'RESET_STORE') {
+    state = undefined
+  }
+  return appReducers(state, action)
+}
 
 export default () => {
   let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)

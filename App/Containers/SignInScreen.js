@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Button, AsyncStorage, TextInput, Image } from 'react-native'
+import { View, AsyncStorage, TextInput, Image } from 'react-native'
 import styles from './Styles/SignInScreenStyle'
 import Images from '../Themes/Images'
 import * as Keychain from 'react-native-keychain'
 import { connect } from 'react-redux'
 import KeyActions from '../Redux/KeyRedux'
 import BalanceActions from '../Redux/BalanceRedux'
+import Button from '../Components/Button'
 
 const secp256k1 = require('secp256k1')
 
@@ -34,7 +35,8 @@ class SignInScreen extends React.Component {
           onChangeText={text => this.setState({ privateKey: text })}
           autoCapitalize='none'
           />
-        <Button title='Sign in!' onPress={this._signInAsync} />
+        <Button icon='account-circle' text='Log in' onPress={this._signInAsync} />
+        <Button icon='person-add' text='Create account' onPress={() => this.props.navigation.navigate('CreateAccount')} />
       </View>
     )
   }
@@ -70,7 +72,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    publicKey: state.key.publicKey
   }
 }
 
