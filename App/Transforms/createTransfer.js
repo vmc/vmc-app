@@ -3,16 +3,16 @@ const utf8 = require('utf8')
 const { createHash } = require('crypto')
 const secp256k1 = require('secp256k1')
 
-export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
+const createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     // Transform hex private key to Buffer object
-  privateKey = Buffer.from(privateKeyHex, 'hex')
+  const privateKey = Buffer.from(privateKeyHex, 'hex')
 
     // TODO: check speed improvement if this is provided and not calculated everytime.
     // Get the public key in a compressed format
   var publicKey = secp256k1.publicKeyCreate(privateKey).toString('hex')
 
     // Sha512 hashing
-  _hash = data => {
+  const _hash = data => {
     return createHash('sha512')
         .update(data)
         .digest('hex')
@@ -23,7 +23,7 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
   var result = null
   var signature = null
 
-  function create_and_sign (header) {
+  function createAndSign (header) {
     dataHash = createHash('sha256')
         .update(header)
         .digest()
@@ -38,7 +38,7 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
 
     // String to binary
   function str2ab (str) {
-    var buf = new Buffer(str, 'binary') // 2 bytes for each char
+    var buf = Buffer.from(str, 'binary') // 2 bytes for each char
     return buf
   }
 
@@ -54,7 +54,7 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
   var inputAddressList = [address]
   var outputAddressList = [address]
 
-  toAddress =
+  const toAddress =
       _hash(utf8.encode(FAMILY_NAME)).substring(0, 6) +
       _hash(utf8.encode(publicKeyTo)).substring(0, 64)
   inputAddressList.push(toAddress)
@@ -76,8 +76,8 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     nonce: utf8.encode(d.getTime().toString(16))
   }).finish()
 
-    // Create signature of transactionheader
-  create_and_sign(transactionHeaderBytes)
+  // Create signature of transactionheader
+  createAndSign(transactionHeaderBytes)
 
     // Create transaction
   const transaction = protobuf.Transaction.create({
@@ -95,8 +95,8 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     transactionIds: transactionlist.map(txn => txn.headerSignature)
   }).finish()
 
-    // Create signature of BatchHeader
-  create_and_sign(batchHeaderBytes)
+  // Create signature of BatchHeader
+  createAndSign(batchHeaderBytes)
 
     // Create Batch
   const batch = protobuf.Batch.create({
@@ -105,8 +105,8 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
     headerSignature: signature
   })
 
-    // List the Batch(es)
-  var batchL = [batch]
+  // List the Batch(es)
+  // var batchL = [batch]
 
   var batchListBytes = protobuf.BatchList.encode({
     batches: [batch]
@@ -118,11 +118,15 @@ export default createTransfer = (privateKeyHex, amount, publicKeyTo) => {
   batchListBytes = Buffer.from(batchListBytes).toString('base64')
 
     // Send Batch to validator and await response
-  return transfer = {
+  const transfer = {
     user: {
       user: publicKey
     },
     destination: publicKeyTo,
     batchlist: batchListBytes
   }
+
+  return transfer
 }
+
+export default createTransfer

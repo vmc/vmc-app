@@ -1,16 +1,12 @@
 'use strict'
 import React, { Component } from 'react'
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { RNCamera } from 'react-native-camera'
-import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 import ImageActions from '../Redux/ImageRedux'
 import styles from './Styles/CameraScreenStyles'
 
 class CameraScreen extends Component {
-  constructor (props) {
-    super(props)
-  }
 
   render () {
     return (

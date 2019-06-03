@@ -10,7 +10,7 @@ import firebase from 'react-native-firebase'
 firebase.messaging().getToken()
 .then(fcmToken => {
   if (fcmToken) {
-  		console.log(fcmToken)
+    console.log(fcmToken)
   } else {
     console.log('no token')
   }
