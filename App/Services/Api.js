@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://test.vmc.ai:5000') => {
+const create = (baseURL = 'http://development.vmc.ai:5000') => {
   // ------
   // STEP 1
   // ------
