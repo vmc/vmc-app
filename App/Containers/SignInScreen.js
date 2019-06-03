@@ -1,4 +1,3 @@
-/* global alert */
 import React from 'react'
 import { View, AsyncStorage, TextInput, Image } from 'react-native'
 import styles from './Styles/SignInScreenStyle'

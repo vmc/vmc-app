@@ -24,15 +24,7 @@
 ## :no_entry_sign: Standard Compliant
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-This project adheres to Standard.  Our CI enforces this, so we suggest you enable linting to keep your project compliant during development.
-
-**To Lint on Commit**
-
-This is implemented using [husky](https://github.com/typicode/husky). There is no additional setup needed.
-
-**Bypass Lint**
-
-If you have to bypass lint for a special commit that you will come back and clean (pushing something to a branch etc.) then you can bypass git hooks with adding `--no-verify` to your commit command.
+This project adheres to Standard. Run `npm run lint` in order to spot errors.
 
 **Understanding Linting Errors**
 
@@ -44,8 +36,7 @@ This project uses [react-native-config](https://github.com/luggit/react-native-c
 and other sensitive information in a `.env` file:
 
 ```
-API_URL=https://myapi.com
-GOOGLE_MAPS_API_KEY=abcdefgh
+MapBoxToken=pk.12345
 ```
 
 and access them from React Native like so:
@@ -53,14 +44,7 @@ and access them from React Native like so:
 ```
 import Secrets from 'react-native-config'
 
-Secrets.API_URL  // 'https://myapi.com'
-Secrets.GOOGLE_MAPS_API_KEY  // 'abcdefgh'
+Secrets.MapBoxToken // pk.12345
 ```
 
 The `.env` file is ignored by git keeping those secrets out of your repo.
-
-### Get started:
-1. Copy .env.example to .env
-2. Add your config variables
-3. Follow instructions at [https://github.com/luggit/react-native-config#setup](https://github.com/luggit/react-native-config#setup)
-4. Done!

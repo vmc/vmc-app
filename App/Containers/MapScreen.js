@@ -1,5 +1,3 @@
-/* global alert */
-
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, PermissionsAndroid } from 'react-native'
 import Header from '../Components/Header'
