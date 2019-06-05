@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects'
 import OrderActions from '../Redux/OrderRedux'
 import BalanceActions from '../Redux/BalanceRedux'
 import { AsyncStorage, ToastAndroid } from 'react-native'
+import showError from '../Services/ErrorToast'
 
 export function * postOrder (api, data) {
   const response = yield call(api.postOrder, [data.ticketType, data.publicKey, data.signedBatch])
@@ -24,6 +25,6 @@ export function * postOrder (api, data) {
     }
   } else {
     yield put(OrderActions.postFailure(response.problem))
-    ToastAndroid.show('You do not have enough money to buy that!', ToastAndroid.SHORT)
+    showError(response)
   }
 }

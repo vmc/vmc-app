@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import BalanceActions from '../Redux/BalanceRedux'
+import showError from '../Services/ErrorToast.js'
 
 export function * getBalance (api, data) {
   const response = yield call(api.getBalance, data.publicKey)
@@ -7,6 +8,8 @@ export function * getBalance (api, data) {
     const balance = response.data.balance
     yield put(BalanceActions.updateSucces(balance))
   } else {
+    // Show error and update state accordingly
+    showError(response)
     yield put(BalanceActions.updateFailure())
   }
 }
@@ -17,5 +20,6 @@ export function * topUp (api, data) {
     yield put(BalanceActions.updateBalance(data.publicKey))
   } else {
     yield put(BalanceActions.updateFailure(response.problem))
+    showError(response)
   }
 }
