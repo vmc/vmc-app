@@ -1,4 +1,4 @@
-import { ToastAndroid } from 'react-native'
+import Toast from 'react-native-simple-toast'
 
 const messages = {
   networkError: 'There seems to be no internet connection.',
@@ -8,12 +8,12 @@ const messages = {
 export default function showError (response) {
   switch (response.problem) {
     case ('CONNECTION_ERROR' || 'TIMEOUT_ERROR'):
-      ToastAndroid.show(messages.serverError, ToastAndroid.LONG)
+      Toast.show(messages.serverError, Toast.LONG)
       break
     case 'NETWORK_ERROR':
-      ToastAndroid.show(messages.networkError, ToastAndroid.LONG)
+      Toast.show(messages.networkError, Toast.LONG)
       break
     default:
-      ToastAndroid.show(response.data.message, ToastAndroid.LONG)
+      Toast.show(response.data.message, Toast.LONG)
   }
 }
