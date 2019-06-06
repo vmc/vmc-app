@@ -4,6 +4,7 @@ import { ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    padding: 10
+    padding: 10,
+    flex: 1
   }
 })

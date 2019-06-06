@@ -84,7 +84,7 @@ export default class MapScreen extends Component {
 
   async fetchDirections (originLong, originLat, destLong, destLat) {
     const coords = originLong + ',' + originLat + ';' + destLong + ',' + destLat
-    const request = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + coords + '?access_token=pk.eyJ1IjoibWF4dm1jIiwiYSI6ImNqc2Q3czI4aTBzbWU0YWxuMjRxdDRpZ3QifQ.Z2pufOgsgEFeQ-1mSd63pw&geometries=geojson'
+    const request = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + coords + '?access_token=' + Secrets.MapBoxToken + '&geometries=geojson'
     try {
       let response = await fetch(
         request

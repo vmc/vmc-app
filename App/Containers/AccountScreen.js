@@ -14,7 +14,7 @@ class AccountScreen extends Component {
     drawerIcon: ({tintColor}) => (
       <Icon name='account-circle' size={20} color={tintColor} />
     )
-  };
+  }
 
   _signOutAsyncConfirm = () => {
     Alert.alert(
@@ -35,7 +35,7 @@ class AccountScreen extends Component {
     this.props.reset()
     await AsyncStorage.clear()
     this.props.navigation.navigate('Auth')
-  };
+  }
 
   render () {
     return (

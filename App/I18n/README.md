@@ -6,13 +6,7 @@ For example if the phone is localized in French, then this will only load the Fr
 
 English translation is set as default fallback in case some translations are not available in the chosen language.
 
-# Installation
-
-Run `ignite add i18n`.
-
 # Usage
-
-TODO: Real usage example.
 
     import I18n from 'App/I18n';
 

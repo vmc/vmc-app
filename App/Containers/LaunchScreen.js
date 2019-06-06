@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, RefreshControl, ScrollView } from 'react-native'
 import Header from '../Components/Header'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -7,7 +7,6 @@ import TicketActions from '../Redux/TicketRedux'
 import TicketCard from '../Components/TicketCard'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
-import { ScrollView } from 'react-native-gesture-handler'
 
 class LaunchScreen extends Component {
   static navigationOptions = {
@@ -17,19 +16,16 @@ class LaunchScreen extends Component {
     )
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-    }
-  }
-
   componentWillMount () {
     this.props.getTicketTypes()
   }
 
   componentWillUnmount () {
 
+  }
+
+  _onRefresh = () => {
+    this.props.getTicketTypes()
   }
 
   render () {
@@ -45,11 +41,20 @@ class LaunchScreen extends Component {
     }
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Header {...this.props} />
-        <ScrollView style={styles.container}>
-          {tickets}
-          <Text style={{color: 'black'}}>Balance: {this.props.balance}</Text>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.props.posting}
+              onRefresh={this._onRefresh}
+            />
+          }
+        >
+          <View style={styles.container}>
+            {tickets}
+            <Text style={{color: 'black'}}>Balance: {this.props.balance}</Text>
+          </View>
         </ScrollView>
       </View>
     )
@@ -60,7 +65,8 @@ const mapStateToProps = (state) => {
   return {
     ticketTypes: state.ticket.ticketTypes,
     error: state.order.error,
-    balance: state.balance.balance
+    balance: state.balance.balance,
+    posting: state.ticket.posting
   }
 }
 

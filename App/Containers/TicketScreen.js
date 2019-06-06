@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, AsyncStorage, Alert } from 'react-native'
+import { View, AsyncStorage, Alert, ScrollView } from 'react-native'
 import Header from '../Components/Header'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -8,7 +8,6 @@ import Button from '../Components/Button'
 import BoughtTicketCard from '../Components/BoughtTicketCard'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
-import { ScrollView } from 'react-native-gesture-handler'
 
 class TicketScreen extends Component {
   static navigationOptions = {
@@ -16,7 +15,15 @@ class TicketScreen extends Component {
     drawerIcon: ({tintColor}) => (
       <Icon name='receipt' size={20} color={tintColor} />
     )
-  };
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      refreshing: false
+    }
+  }
 
   componentWillMount () {
 
@@ -63,7 +70,12 @@ class TicketScreen extends Component {
         <Header {...this.props} />
         <ScrollView style={[styles.container, {flex: 1}]}>
           {tickets}
-          <Button icon='delete' style={{marginBottom: 20, backgroundColor: 'red'}} text='Delete history' onPress={() => this.deleteHistConfirm()} />
+          <Button
+            icon='delete'
+            style={{marginBottom: 20, backgroundColor: 'red'}}
+            text='Delete history'
+            onPress={() => this.deleteHistConfirm()}
+          />
         </ScrollView>
       </View>
     )
