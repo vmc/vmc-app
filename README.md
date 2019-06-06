@@ -1,6 +1,10 @@
 #  VMC
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 
+## NOTE
+
+This is a mirror from our private repository. This repository is under constant development.
+
 ## :arrow_up: How to Setup
 
 **Step 1:** git clone this repo:
