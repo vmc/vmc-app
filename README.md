@@ -5,7 +5,7 @@
 
 This is a mirror from our private repository. This repository is under constant development.
 
-## :arrow_up: How to Setup
+## How to Setup
 
 **Step 1:** git clone this repo:
 
@@ -16,7 +16,7 @@ This is a mirror from our private repository. This repository is under constant 
 **Step 4:** run `./node_modules/.bin/rn-nodeify --hack --install` (https://www.npmjs.com/package/rn-nodeify)
 
 
-## :arrow_forward: How to Run App
+## How to Run App
 
 1. cd to the repo
 2. Run Build for either OS
@@ -25,16 +25,17 @@ This is a mirror from our private repository. This repository is under constant 
   * for Android
     * run `react-native run-android`
 
-## :no_entry_sign: Standard Compliant
+## Standard Compliant
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 This project adheres to Standard. Run `npm run lint` in order to spot errors.
 
 **Understanding Linting Errors**
 
 The linting rules are from JS Standard and React-Standard.  [Regular JS errors can be found with descriptions here](http://eslint.org/docs/rules/), while [React errors and descriptions can be found here](https://github.com/yannickcr/eslint-plugin-react).
 
-## :closed_lock_with_key: Secrets
+## Secrets
 
 This project uses [react-native-config](https://github.com/luggit/react-native-config) to expose config variables to your javascript code in React Native. You can store API keys
 and other sensitive information in a `.env` file:
