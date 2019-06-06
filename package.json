@@ -107,7 +107,7 @@
     "metro-react-native-babel-preset": "^0.54.0",
     "mockery": "^2.1.0",
     "react-devtools-core": "3.4.3",
-    "react-dom": "16.3.0",
+    "react-dom": "16.3.3",
     "react-test-renderer": "16.8.3",
     "reactotron-react-native": "^2.1.0",
     "reactotron-redux": "^2.1.0",
