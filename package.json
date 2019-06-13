@@ -39,7 +39,7 @@
     "protobufjs": "^6.8.8",
     "punycode": "^1.4.1",
     "puppeteer": "^1.15.0",
-    "querystringify": "2.0.0",
+    "querystringify": "1.0.0",
     "ramda": "^0.25.0",
     "react": "16.8.3",
     "react-native": "0.59.8",
