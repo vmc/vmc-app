@@ -18,7 +18,7 @@ This is a mirror from our private repository. This repository is under constant 
 
 ## How to Run App
 
-1. cd to the repo
+1. cd to the repository
 2. Run Build for either OS
   * for iOS
     * run `react-native run-ios`
