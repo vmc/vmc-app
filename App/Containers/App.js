@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
 import firebase from 'react-native-firebase'
+import { Sentry } from 'react-native-sentry'
+Sentry.config('https://d453a881fdaa4ed0a48f73daf0978cd2@sentry.io/1480318').install()
 
 firebase.messaging().getToken()
 .then(fcmToken => {
