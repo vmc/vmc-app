@@ -6,23 +6,29 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Secrets from 'react-native-config'
 import Toast from 'react-native-simple-toast'
 
+var state = {
+  autoComplete: [],
+  fromLocationText: '',
+  toLocationText: '',
+  fromLocationCoords: [],
+  toLocationCoords: [],
+  routes: []
+}
+
 export default class RoutePlanner extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      autoComplete: [],
-      fromLocationText: '',
-      toLocationText: '',
-      fromLocationCoords: [],
-      toLocationCoords: [],
-      routes: []
-    }
+    this.state = state
   }
 
   timeout = null
 
-  // TODO Change to sagas take latest
-  // TODO only add porximity when possible
+  componentWillUnmount () {
+    // Remember state for the next mount
+    state = this.state
+  }
+
+  // TODO If call is made to vmc backend, change to sagas take latest
   async autoFill (text) {
     if (this.state.fromFocus) {
       this.setState({fromLocationText: text, fromLocationCoords: []})
@@ -181,7 +187,7 @@ export default class RoutePlanner extends Component {
           <ScrollView style={styles.optionList}>
             {this.renderRoutes()}
           </ScrollView>
-          {this.state.loading ? <ActivityIndicator /> : null}
+          {this.state.loading ? <ActivityIndicator style={{marginTop: 25}} /> : null}
         </View>
         <View style={styles.buttonContainer}>
 

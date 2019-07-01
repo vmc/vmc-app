@@ -63,5 +63,10 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  modal: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 10
   }
 })

@@ -13,6 +13,7 @@ import Images from '../Themes/Images'
 
 Mapbox.setAccessToken(Secrets.MapBoxToken)
 
+// Styling object of the map
 const mapStyles = Mapbox.StyleSheet.create({
   lines: {
     lineColor: Mapbox.StyleSheet.identity('color'),
@@ -36,9 +37,9 @@ export default class MapScreen extends Component {
 
     this.state = {
       directions: null,
-      points: [],
       routePlannerVisible: false
     }
+
     this.passTextInput = null
   }
 
@@ -90,12 +91,10 @@ export default class MapScreen extends Component {
     }
 
     directions = directions.directions
-    console.log(directions)
 
     const routes = directions.features
     const lastRouteCoordinates = routes[routes.length - 1].geometry.coordinates
     const lastCoordinate = lastRouteCoordinates[lastRouteCoordinates.length - 1]
-    console.log(lastCoordinate)
 
     return (
       <View>
@@ -114,39 +113,6 @@ export default class MapScreen extends Component {
         </Mapbox.PointAnnotation>
       </View>
     )
-  }
-
-  renderAnnotation (counter) {
-    const id = `pointAnnotation${counter}`
-    const coordinate = this.state.points[counter]
-
-    return (
-      <Mapbox.PointAnnotation
-        key={id}
-        id={id}
-        title='Test'
-        coordinate={coordinate}
-      >
-        <View
-          style={{
-            width: 10,
-            height: 10,
-            backgroundColor: '#0067B2',
-            borderRadius: 5
-          }}
-        />
-      </Mapbox.PointAnnotation>
-    )
-  }
-
-  renderAnnotations () {
-    const items = []
-
-    for (let i = 0; i < this.state.points.length; i++) {
-      items.push(this.renderAnnotation(i))
-    }
-
-    return items
   }
 
   renderOption () {
@@ -187,6 +153,8 @@ export default class MapScreen extends Component {
     this.fitMap(route)
   }
 
+  // Fit map to the outside corners of a geojson route object
+
   fitMap (route) {
     const allCoordinates = route.directions.features.map((feature) => {
       return feature.geometry.coordinates
@@ -196,7 +164,6 @@ export default class MapScreen extends Component {
     north = south = allCoordinates[0][0][1]
     west = east = allCoordinates[0][0][0]
 
-    console.log(allCoordinates)
     for (let i = 0; i < allCoordinates.length; i++) {
       const coordinateList = allCoordinates[i]
       for (let j = 0; j < coordinateList.length; j++) {
@@ -219,12 +186,11 @@ export default class MapScreen extends Component {
 
   render () {
     const renderDirections = this.renderDirections()
-    const renderAnnotations = this.renderAnnotations()
 
     return (
       <View style={styles.container}>
         <Header {...this.props} />
-        <Modal useNativeDriver isVisible={this.state.routePlannerVisible} style={{flex: 1, backgroundColor: 'white', borderRadius: 10}} >
+        <Modal useNativeDriver isVisible={this.state.routePlannerVisible} style={styles.modal} >
           <RoutePlanner
             dismiss={() => this.setState({routePlannerVisible: false})}
             currentLatitude={this.state.userLat}
@@ -244,7 +210,6 @@ export default class MapScreen extends Component {
             onPress={() => this.setState({ stepSelected: false })}
           >
             {renderDirections}
-            {renderAnnotations}
           </Mapbox.MapView>
           <TouchableOpacity
             onPress={() => this.centerUserLocation()}
