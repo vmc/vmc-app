@@ -10,6 +10,7 @@ import CreateAccountScreen from '../Containers/CreateAccountScreen'
 import AccountScreen from '../Containers/AccountScreen'
 import CameraScreen from '../Containers/CameraScreen'
 import TicketScreen from '../Containers/TicketScreen'
+import MapScreen from '../Containers/MapScreen'
 // import TransferScreen from '../Containers/TransferScreen'
 import Images from '../Themes/Images'
 
@@ -32,6 +33,7 @@ const PrimaryNav = createDrawerNavigator({
       )
     }
   },
+  MapScreen: {screen: MapScreen},
   AccountScreen: {screen: AccountScreen},
   TicketScreen: {screen: TicketScreen}
   /* TransferScreen: {screen: TransferScreen} */

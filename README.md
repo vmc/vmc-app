@@ -1,9 +1,5 @@
 #  VMC
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
-
-[![license](https://img.shields.io/apm/l/vim-mode.svg)](https://opensource.org/licenses/MIT)
-
-![](https://img.shields.io/badge/platform-android%20%7C%20ios-blue.svg)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/) [![license](https://img.shields.io/apm/l/vim-mode.svg)](https://opensource.org/licenses/MIT) ![](https://img.shields.io/badge/platform-android%20%7C%20ios-blue.svg)
 
 ## NOTE
 

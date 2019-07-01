@@ -1,20 +1,32 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, PermissionsAndroid } from 'react-native'
+import { View, TouchableOpacity, PermissionsAndroid, Text, Image } from 'react-native'
 import Header from '../Components/Header'
 import Mapbox from '@mapbox/react-native-mapbox-gl'
 import Geolocation from 'react-native-geolocation-service'
 import firebase, { Notification } from 'react-native-firebase'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-// Styles
 import styles from './Styles/MapScreenStyles'
 import Secrets from 'react-native-config'
+import RoutePlanner from './RoutePlanner'
+import Modal from 'react-native-modal'
+import Images from '../Themes/Images'
 
 Mapbox.setAccessToken(Secrets.MapBoxToken)
 
+const mapStyles = Mapbox.StyleSheet.create({
+  lines: {
+    lineColor: Mapbox.StyleSheet.identity('color'),
+    lineWidth: 3,
+    lineCap: 'round',
+    lineJoin: 'round',
+    lineDasharray: Mapbox.StyleSheet.identity('lineDasharray')
+  }
+})
+
 export default class MapScreen extends Component {
   static navigationOptions = {
-    drawerLabel: 'Book a ride',
-    drawerIcon: ({tintColor}) => (
+    drawerLabel: 'Find a ride',
+    drawerIcon: ({ tintColor }) => (
       <Icon name='gps-fixed' size={20} color={tintColor} />
     )
   };
@@ -23,22 +35,11 @@ export default class MapScreen extends Component {
     super(props)
 
     this.state = {
-      stepLocations: [
-        {
-          id: '1',
-          latitude: 52.369838,
-          longitude: 4.882422
-        },
-        {
-          id: '2',
-          latitude: 52.371220,
-          longitude: 4.884511
-        }
-      ],
       directions: null,
-      distance: 0,
-      stepSelected: false
+      points: [],
+      routePlannerVisible: false
     }
+    this.passTextInput = null
   }
 
   componentWillMount () {
@@ -65,8 +66,7 @@ export default class MapScreen extends Component {
   }
 
   centerUserLocation () {
-    console.log('HIHIHI')
-    this.setState({userTrackingMode: Mapbox.UserTrackingModes.Follow})
+    this.setState({ userTrackingMode: Mapbox.UserTrackingModes.Follow })
     Geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -74,7 +74,7 @@ export default class MapScreen extends Component {
           longitude: position.coords.longitude,
           error: null
         })
-        this.setState({userLat: position.coords.latitude, userLong: position.coords.longitude})
+        this.setState({ userLat: position.coords.latitude, userLong: position.coords.longitude })
         this._map.flyTo([position.coords.longitude, position.coords.latitude])
       },
       (error) => this.setState({ error: error.message }),
@@ -82,125 +82,184 @@ export default class MapScreen extends Component {
     )
   }
 
-  async fetchDirections (originLong, originLat, destLong, destLat) {
-    const coords = originLong + ',' + originLat + ';' + destLong + ',' + destLat
-    const request = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + coords + '?access_token=' + Secrets.MapBoxToken + '&geometries=geojson'
-    try {
-      let response = await fetch(
-        request
-      )
-      let responseJson = await response.json()
-      console.log(responseJson)
-      if (responseJson.routes[0] !== undefined) {
-        this.setState({directions: responseJson.routes[0], duration: Math.ceil(responseJson.routes[0].duration / 60)})
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  planRoute (id, longitude, latitude) {
-    this.setState({stepSelected: true, id: id, duration: '...', directions: null})
-    this.fetchDirections(this.state.userLong, this.state.userLat, longitude, latitude)
-  }
-
-  renderAnnotations () {
-    return (
-      <View>
-        {this.state.stepLocations.map(location => (
-          <Mapbox.PointAnnotation
-            key={location.id}
-            id={location.id}
-            coordinate={[location.longitude, location.latitude]}
-          >
-            <TouchableOpacity onPress={() => this.planRoute(location.id, location.longitude, location.latitude)} style={styles.annotationContainer}>
-              <View style={[styles.annotationFill, {backgroundColor: location.selected ? '#3AD29F' : '#0067B2'}]} />
-            </TouchableOpacity>
-            {/*            <Mapbox.Callout containerStyle={styles.callout}>
-            <TouchableOpacity onPress={() => alert('Booked! Vehicle id is ' + location.id)} style={{flexDirection: 'row'}}>
-              <Text style={{color: 'white', textAlign: 'center'}}>Book - {Math.ceil(60 / this.state.duration)} min </Text>
-              <Icon name="directions-walk" size={18} color="white" />
-            </TouchableOpacity>
-          </Mapbox.Callout> */}
-          </Mapbox.PointAnnotation>
-        ))}
-      </View>
-    )
-  }
-
   renderDirections () {
-    const directions = this.state.directions
+    var directions = this.state.directions
 
     if (!directions) {
       return null
     }
 
+    directions = directions.directions
+    console.log(directions)
+
+    const routes = directions.features
+    const lastRouteCoordinates = routes[routes.length - 1].geometry.coordinates
+    const lastCoordinate = lastRouteCoordinates[lastRouteCoordinates.length - 1]
+    console.log(lastCoordinate)
+
     return (
-      <Mapbox.ShapeSource id='mapbox-directions-source' shape={directions.geometry}>
-        <Mapbox.LineLayer
-          id='mapbox-directions-line'
-          style={{lineColor: '#0067B2', lineWidth: 3, lineCap: 'round'}}
-        />
-      </Mapbox.ShapeSource>
+      <View>
+        <Mapbox.ShapeSource id='mapbox-directions-source' shape={directions}>
+          <Mapbox.LineLayer
+            id='mapbox-directions-line'
+            style={mapStyles.lines}
+          />
+        </Mapbox.ShapeSource>
+        <Mapbox.PointAnnotation
+          id='endPoint'
+          coordinate={lastCoordinate}
+          anchor={{x: 0.5, y: 1}}
+        >
+          <Image source={Images.map_marker} style={{height: 25, width: 25}} />
+        </Mapbox.PointAnnotation>
+      </View>
     )
   }
 
-  bookVehicle (id) {
-    this.props.navigation.navigate('CameraScreen')
+  renderAnnotation (counter) {
+    const id = `pointAnnotation${counter}`
+    const coordinate = this.state.points[counter]
+
+    return (
+      <Mapbox.PointAnnotation
+        key={id}
+        id={id}
+        title='Test'
+        coordinate={coordinate}
+      >
+        <View
+          style={{
+            width: 10,
+            height: 10,
+            backgroundColor: '#0067B2',
+            borderRadius: 5
+          }}
+        />
+      </Mapbox.PointAnnotation>
+    )
+  }
+
+  renderAnnotations () {
+    const items = []
+
+    for (let i = 0; i < this.state.points.length; i++) {
+      items.push(this.renderAnnotation(i))
+    }
+
+    return items
+  }
+
+  renderOption () {
+    const route = this.state.directions
+    var totalMinutes = 0
+    if (route) {
+      return (
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('LaunchScreen')} style={styles.routeOption}>
+          <View style={{flexDirection: 'row'}}>
+            {route.directions.features.map((feature, j) => {
+              totalMinutes += Math.round(feature.duration / 60)
+              return (
+                <View key={j} style={{flexDirection: 'row'}}>
+                  <Icon color='black' size={25} name={feature.transportType === 'walk' ? 'directions-walk' : 'directions-subway'} />
+                  <View style={{justifyContent: 'flex-end'}}>
+                    <Text style={{fontSize: 10}}>{Math.round(feature.duration / 60)}</Text>
+                  </View>
+                  {j < route.directions.features.length - 1 ? <Icon size={25} name='chevron-right' /> : null}
+                </View>
+              )
+            })}
+          </View>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{color: 'black'}}>{totalMinutes} min</Text>
+          </View>
+          <View style={{borderColor: '#ebebeb', borderWidth: 1, borderRadius: 2, justifyContent: 'center', alignItems: 'center', padding: 5}}>
+            <Text style={{color: 'black'}}>Buy ticket</Text>
+          </View>
+        </TouchableOpacity>
+      )
+    } else {
+      return null
+    }
+  }
+
+  showRoute (route) {
+    this.setState({directions: route})
+    this.fitMap(route)
+  }
+
+  fitMap (route) {
+    const allCoordinates = route.directions.features.map((feature) => {
+      return feature.geometry.coordinates
+    })
+
+    var north, south, west, east
+    north = south = allCoordinates[0][0][1]
+    west = east = allCoordinates[0][0][0]
+
+    console.log(allCoordinates)
+    for (let i = 0; i < allCoordinates.length; i++) {
+      const coordinateList = allCoordinates[i]
+      for (let j = 0; j < coordinateList.length; j++) {
+        if (coordinateList[j][0] > east) {
+          east = coordinateList[j][0]
+        }
+        if (coordinateList[j][0] < west) {
+          west = coordinateList[j][0]
+        }
+        if (coordinateList[j][1] > north) {
+          north = coordinateList[j][1]
+        }
+        if (coordinateList[j][1] < south) {
+          south = coordinateList[j][1]
+        }
+      }
+    }
+    this._map.fitBounds([west, north], [east, south], 20)
   }
 
   render () {
+    const renderDirections = this.renderDirections()
+    const renderAnnotations = this.renderAnnotations()
+
     return (
       <View style={styles.container}>
         <Header {...this.props} />
-        <Mapbox.MapView
-          ref={(c) => { this._map = c }}
-          styleURL={Mapbox.StyleURL.Street}
-          zoomLevel={15}
-          showUserLocation
-          style={styles.container}
-          userTrackingMode={Mapbox.UserTrackingModes.Follow}
-          rotateEnabled={false}
-          onPress={() => this.setState({stepSelected: false})}
-        >
-          {this.renderAnnotations()}
-          {this.renderDirections()}
-        </Mapbox.MapView>
-        <TouchableOpacity
-          onPress={() => this.centerUserLocation()}
-          style={styles.centerLocation}
-        >
-          <Icon name='gps-fixed' size={25} color='white' />
-        </TouchableOpacity>
-        {this.state.stepSelected
-          ? <View>
-            <TouchableOpacity
-              onPress={() => this.centerUserLocation()}
-              style={[styles.centerLocation, {bottom: 225}]}
-            >
-              <Icon name='gps-fixed' size={25} color='white' />
-            </TouchableOpacity>
-            <View elevation={5} style={{position: 'absolute', width: '100%', height: 200, bottom: 0, backgroundColor: 'white', zIndex: 111, padding: 20, justifyContent: 'space-between'}} >
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{color: 'black'}}>Swheel ({this.state.id})</Text>
-                <TouchableOpacity hitSlop={{top: 20, bottom: 20, left: 20, right: 20}} onPress={() => this.setState({stepSelected: false})}>
-                  <Icon name='expand-more' size={18} color='black' />
-                </TouchableOpacity>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'black', marginRight: 5}}>{this.state.duration} min</Text>
-                  <Icon name='directions-walk' size={18} color='black' />
-                </View>
-              </View>
-              <TouchableOpacity elevation={5} onPress={() => this.bookVehicle(this.state.id)} style={{flex: 0.4, backgroundColor: '#0067B2', justifyContent: 'center', alignItems: 'center', height: 30}} >
-                <Text style={{color: 'white'}}>Huren</Text>
-              </TouchableOpacity>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text>Actueel tarief:</Text>
-                <Text>&euro;0.50/min</Text>
-              </View>
-            </View>
-          </View>
-        : null}
+        <Modal useNativeDriver isVisible={this.state.routePlannerVisible} style={{flex: 1, backgroundColor: 'white', borderRadius: 10}} >
+          <RoutePlanner
+            dismiss={() => this.setState({routePlannerVisible: false})}
+            currentLatitude={this.state.userLat}
+            currentLongitude={this.state.userLong}
+            showRoute={(route) => this.showRoute(route)}
+          />
+        </Modal>
+        <View style={{ flex: 1 }}>
+          <Mapbox.MapView
+            ref={(c) => { this._map = c }}
+            styleURL={Mapbox.StyleURL.Street}
+            zoomLevel={15}
+            showUserLocation
+            style={styles.container}
+            userTrackingMode={Mapbox.UserTrackingModes.Follow}
+            rotateEnabled={false}
+            onPress={() => this.setState({ stepSelected: false })}
+          >
+            {renderDirections}
+            {renderAnnotations}
+          </Mapbox.MapView>
+          <TouchableOpacity
+            onPress={() => this.centerUserLocation()}
+            style={styles.centerLocation}
+          >
+            <Icon name='gps-fixed' size={25} color='white' />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.setState({routePlannerVisible: true})}
+            style={styles.plannerButton}
+          >
+            <Icon name='directions' size={25} color='white' />
+          </TouchableOpacity>
+        </View>
+        {this.renderOption()}
       </View>
     )
   }
