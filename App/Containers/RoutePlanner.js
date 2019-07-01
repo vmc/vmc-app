@@ -6,6 +6,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Secrets from 'react-native-config'
 import Toast from 'react-native-simple-toast'
 
+// Small trick to keep state when opening/closing (mounting/unmounting) the planner.
 var state = {
   autoComplete: [],
   fromLocationText: '',
