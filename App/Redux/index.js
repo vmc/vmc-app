@@ -9,7 +9,8 @@ const appReducers = combineReducers({
   key: require('./KeyRedux').reducer,
   balance: require('./BalanceRedux').reducer,
   order: require('./OrderRedux').reducer,
-  ticket: require('./TicketRedux').reducer
+  ticket: require('./TicketRedux').reducer,
+  route: require('./RouteRedux').reducer
 })
 
 export const reducers = (state, action) => {

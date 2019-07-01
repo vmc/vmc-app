@@ -46,6 +46,17 @@ const create = (baseURL = 'http://development.vmc.ai:5000') => {
     })
   }
   const getTicketTypes = () => api.get('getTicketTypes')
+  const findRoute = ([fromCoords, toCoords]) => {
+    return api.get('planner/route?origin_lat=' +
+      fromCoords[0] +
+      '&origin_lon=' +
+      fromCoords[1] +
+      '&dest_lat=' +
+      toCoords[0] +
+      '&dest_lon=' +
+      toCoords[1]
+    )
+  }
 
   // ------
   // STEP 3
@@ -64,7 +75,8 @@ const create = (baseURL = 'http://development.vmc.ai:5000') => {
     getBalance,
     topUp,
     postOrder,
-    getTicketTypes
+    getTicketTypes,
+    findRoute
   }
 }
 

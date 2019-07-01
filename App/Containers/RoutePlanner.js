@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Secrets from 'react-native-config'
 import Toast from 'react-native-simple-toast'
+import RouteActions from '../Redux/RouteRedux'
+import { connect } from 'react-redux'
 
 // Small trick to keep state when opening/closing (mounting/unmounting)
 // the planner.
@@ -24,7 +26,7 @@ var state = {
   routes: []
 }
 
-export default class RoutePlanner extends Component {
+class RoutePlanner extends Component {
   constructor (props) {
     super(props)
     this.state = state
@@ -100,27 +102,16 @@ export default class RoutePlanner extends Component {
   }
 
   findRoutes () {
-    this.setState({routes: [], loading: true})
     const fromLoc = this.state.fromLocationCoords
     const toLoc = this.state.toLocationCoords
     if (fromLoc.length < 2 || toLoc.length < 2) {
-      this.setState({loading: false})
       Toast.show(
         'Please select both locations from the suggestions.',
         Toast.SHORT
       )
       return
     }
-    const url = 'http://develop.vmc.ai:5000/planner/route?origin_lat=' + fromLoc[0] + '&origin_lon=' + fromLoc[1] + '&dest_lat=' + toLoc[0] + '&dest_lon=' + toLoc[1]
-    console.log(url)
-    fetch(url)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({loading: false, routes: [responseJson]})
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+    this.props.findRoute(fromLoc, toLoc)
   }
 
   showRoute (route) {
@@ -129,7 +120,7 @@ export default class RoutePlanner extends Component {
   }
 
   renderRoutes () {
-    return this.state.routes.map((route, i) => {
+    return this.props.routes.map((route, i) => {
       var totalMinutes = 0
       return (
         <View key={i}>
@@ -239,7 +230,10 @@ export default class RoutePlanner extends Component {
                   style={styles.autoFillItem}
                 >
                   <Icon name='location-searching' size={25} />
-                  <Text style={{color: 'black', marginHorizontal: 5}} key={data}>
+                  <Text
+                    style={{color: 'black', marginHorizontal: 5}}
+                    key={data}
+                  >
                     {data[0]}
                   </Text>
                 </TouchableOpacity>
@@ -249,7 +243,7 @@ export default class RoutePlanner extends Component {
           <ScrollView style={styles.optionList}>
             {this.renderRoutes()}
           </ScrollView>
-          {this.state.loading
+          {this.props.loading
             ? <ActivityIndicator style={{marginTop: 25}} />
             : null
           }
@@ -269,3 +263,19 @@ export default class RoutePlanner extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    routes: state.route.routes,
+    loading: state.route.posting,
+    error: state.route.error
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    findRoute: (toCoords, fromCoords) => dispatch(RouteActions.routeFind(toCoords, fromCoords))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoutePlanner)

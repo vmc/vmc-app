@@ -8,6 +8,7 @@ import { ImageTypes } from '../Redux/ImageRedux'
 import { BalanceTypes } from '../Redux/BalanceRedux'
 import { OrderTypes } from '../Redux/OrderRedux'
 import { TicketTypes } from '../Redux/TicketRedux'
+import { RouteTypes } from '../Redux/RouteRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -16,6 +17,7 @@ import { postImage } from './ImageSagas'
 import { getBalance, topUp } from './BalanceSagas'
 import { postOrder } from './OrderSagas'
 import { getTicketTypes } from './TicketSagas'
+import { findRoute } from './RouteSagas'
 
 /* ------------- API ------------- */
 
@@ -32,6 +34,7 @@ export default function * root () {
     takeLatest(BalanceTypes.UPDATE_BALANCE, getBalance, api),
     takeLatest(BalanceTypes.TOP_UP_BALANCE, topUp, api),
     takeLatest(OrderTypes.POST_ORDER, postOrder, api),
-    takeLatest(TicketTypes.GET_TICKET, getTicketTypes, api)
+    takeLatest(TicketTypes.GET_TICKET, getTicketTypes, api),
+    takeLatest(RouteTypes.ROUTE_FIND, findRoute, api)
   ])
 }
